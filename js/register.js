@@ -1,5 +1,5 @@
 const REGISTER_API_URL =
-    "http://localhost:5000/api/auth/register";
+    "https://dynamic-form-builder-backend-ljb.onrender.com/api/auth/register";
 
 
 const registerForm =

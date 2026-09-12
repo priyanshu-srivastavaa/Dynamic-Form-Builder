@@ -1,11 +1,11 @@
 const FORMS_API_URL =
-    "http://localhost:5000/api/forms";
+    "https://dynamic-form-builder-backend-ljb.onrender.com/api/forms";
 
 const RESPONSES_API_URL =
-    "http://localhost:5000/api/responses";
+    "https://dynamic-form-builder-backend-ljb.onrender.com/api/responses";
 
 const PROFILE_API_URL =
-    "http://localhost:5000/api/auth/profile";
+    "https://dynamic-form-builder-backend-ljb.onrender.com/api/auth/profile";
 
 const formsDashboardList =
     document.getElementById(
@@ -63,23 +63,6 @@ async function loadDashboardProfile() {
 
         const result =
             await response.json();
-
-
-        if (!response.ok) {
-
-            localStorage.removeItem(
-                "authToken"
-            );
-
-            localStorage.removeItem(
-                "loggedInUser"
-            );
-
-            window.location.href =
-                "login.html";
-
-            return;
-        }
 
 
         const user =

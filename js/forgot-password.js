@@ -1,5 +1,5 @@
 const FORGOT_PASSWORD_API =
-    "http://localhost:5000/api/auth/forgot-password";
+    "https://dynamic-form-builder-backend-ljb.onrender.com/api/auth/forgot-password";
 
 
 const forgotPasswordForm =

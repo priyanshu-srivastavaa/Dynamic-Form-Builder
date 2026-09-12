@@ -142,7 +142,7 @@ resetPasswordForm.addEventListener(
 
             const response =
                 await fetch(
-                    `http://localhost:5000/api/auth/reset-password/${resetToken}`,
+                    `https://dynamic-form-builder-backend-ljb.onrender.com/api/auth/reset-password/${resetToken}`,
                     {
                         method:
                             "POST",
