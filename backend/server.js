@@ -49,7 +49,15 @@ const PORT =
 // ==========================================
 
 app.use(
-    cors()
+    cors({
+        origin: [
+            "http://127.0.0.1:5500",
+            "http://localhost:5500",
+            "https://dynamic-form-builder-tan-seven.vercel.app"
+        ],
+        methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+        allowedHeaders: ["Content-Type", "Authorization"]
+    })
 );
 
 
