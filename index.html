@@ -1,0 +1,1192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="theme-color"
+        content="#070b16"
+    >
+
+    <title>Dynamic Form Builder</title>
+
+    <link rel="stylesheet" href="style.css">
+   <script src="js/authGuard.js"></script>
+   <script src="js/apiAuth.js"></script>
+</head>
+
+<body>
+
+    <header class="topbar">
+
+        <div class="brand">
+
+            <div class="brand-logo">
+                F
+            </div>
+
+            <div>
+                <h1>Dynamic Form Builder</h1>
+                <p>Build. Customize. Collect.</p>
+            </div>
+
+        </div>
+
+
+        <div class="top-actions">
+
+            <button id="saveBtn" type="button">
+                <span>💾</span>
+                Save
+            </button>
+
+            <button id="loadBtn" type="button">
+                <span>📂</span>
+                Load
+            </button>
+
+            <button id="exportBtn" type="button">
+                <span>⬇</span>
+                Export JSON
+            </button>
+
+            <button id="importBtn" type="button">
+                <span>⬆</span>
+                Import JSON
+            </button>
+
+            <button
+                id="clearBtn"
+                class="danger-action"
+                type="button"
+            >
+                <span>🗑</span>
+                Clear
+            </button>
+
+        </div>
+
+
+        <button
+            id="themeBtn"
+            class="theme-button"
+            type="button"
+        >
+            ☀ Light Mode
+        </button>
+
+    </header>
+
+
+    <input
+        type="file"
+        id="importFile"
+        accept=".json,application/json"
+        hidden
+    >
+
+
+    <main class="dashboard">
+
+        <!-- =========================================
+             COMPONENTS PANEL
+        ========================================== -->
+
+        
+
+        <aside
+            class="panel components-panel"
+            id="componentsPanel"
+        >
+
+            <div class="panel-title">
+
+                <span
+                    class="title-icon"
+                    id="toggleComponents"
+                    title="Collapse Components"
+                >
+                    ⌘
+                </span>
+
+                <div>
+                    <small>Components</small>
+                    <h2>Add Fields</h2>
+                </div>
+
+            </div>
+
+
+            <p class="panel-intro">
+                Click or drag a component into the canvas.
+            </p>
+
+
+            <div class="field-list">
+
+                <button
+                    id="textBtn"
+                    class="field-source"
+                    draggable="true"
+                    type="button"
+                >
+                    <span class="source-icon purple">T</span>
+
+                    <span>
+                        <strong>Text Input</strong>
+                        <small>Single-line response</small>
+                    </span>
+
+                    <b>⋮⋮</b>
+                </button>
+
+
+                <button
+                    id="emailBtn"
+                    class="field-source"
+                    draggable="true"
+                    type="button"
+                >
+                    <span class="source-icon">@</span>
+
+                    <span>
+                        <strong>Email</strong>
+                        <small>Email address</small>
+                    </span>
+
+                    <b>⋮⋮</b>
+                </button>
+
+
+                <button
+                    id="phoneBtn"
+                    class="field-source"
+                    draggable="true"
+                    type="button"
+                >
+                    <span class="source-icon green">☎</span>
+
+                    <span>
+                        <strong>Phone</strong>
+                        <small>Phone number</small>
+                    </span>
+
+                    <b>⋮⋮</b>
+                </button>
+
+                <button
+                    id="urlBtn"
+                    class="field-source"
+                    draggable="true"
+                    type="button"
+                >
+                    <span class="source-icon blue">🔗</span>
+
+                    <span>
+                        <strong>URL</strong>
+                        <small>Website link</small>
+                    </span>
+
+                    <b>⋮⋮</b>
+                </button>
+
+                <button
+                    id="timeBtn"
+                    class="field-source"
+                    draggable="true"
+                    type="button"
+                >
+                    <span class="source-icon green">⏰</span>
+
+                    <span>
+                        <strong>Time</strong>
+                        <small>Time selection</small>
+                    </span>
+
+                    <b>⋮⋮</b>
+                </button>
+
+                <button
+                    id="dateTimeBtn"
+                    class="field-source"
+                    draggable="true"
+                    type="button"
+                >
+                    <span class="source-icon blue">◷</span>
+
+                    <span>
+                        <strong>Date & Time</strong>
+                        <small>Date and time selection</small>
+                    </span>
+
+                    <b>⋮⋮</b>
+                </button>
+
+                <button
+                    id="multiSelectBtn"
+                    class="field-source"
+                    draggable="true"
+                    type="button"
+                >
+                    <span class="source-icon purple">☷</span>
+
+                    <span>
+                        <strong>Multi Select</strong>
+                        <small>Select multiple options</small>
+                    </span>
+
+                    <b>⋮⋮</b>
+                </button>
+
+                <button
+                    id="addressBtn"
+                    class="field-source"
+                    draggable="true"
+                    type="button"
+                >
+                    <span class="source-icon green">🏠</span>
+
+                    <span>
+                        <strong>Address</strong>
+                        <small>Structured address</small>
+                    </span>
+
+                    <b>⋮⋮</b>
+                </button>
+
+                <button
+                    id="nameBtn"
+                    class="field-source"
+                    draggable="true"
+                    type="button"
+                >
+                    <span class="source-icon purple">👤</span>
+
+                    <span>
+                        <strong>Name</strong>
+                        <small>First and last name</small>
+                    </span>
+
+                    <b>⋮⋮</b>
+                </button>
+                <button
+    id="scaleBtn"
+    class="field-source"
+    draggable="true"
+    type="button"
+>
+    <span class="source-icon purple">↔</span>
+
+    <span>
+        <strong>Scale</strong>
+        <small>Numeric rating scale</small>
+    </span>
+
+    <b>⋮⋮</b>
+</button>
+
+<button
+    id="currencyBtn"
+    class="field-source"
+    draggable="true"
+    type="button"
+>
+    <span class="source-icon green">₹</span>
+
+    <span>
+        <strong>Currency</strong>
+        <small>Money amount</small>
+    </span>
+
+    <b>⋮⋮</b>
+</button>
+
+<button
+    id="passwordBtn"
+    class="field-source"
+    draggable="true"
+    type="button"
+>
+    <span class="source-icon purple">🔒</span>
+
+    <span>
+        <strong>Password</strong>
+        <small>Secure hidden input</small>
+    </span>
+
+    <b>⋮⋮</b>
+</button>
+
+<button
+    id="signatureBtn"
+    class="field-source"
+    draggable="true"
+    type="button"
+>
+    <span class="source-icon blue">✍</span>
+
+    <span>
+        <strong>Signature</strong>
+        <small>Draw signature</small>
+    </span>
+
+    <b>⋮⋮</b>
+</button>
+
+<button
+    id="matrixBtn"
+    class="field-source"
+    draggable="true"
+    type="button"
+>
+    <span class="source-icon blue">▦</span>
+
+    <span>
+        <strong>Likert / Matrix</strong>
+        <small>Grid based choices</small>
+    </span>
+
+    <b>⋮⋮</b>
+</button>
+
+<button
+    id="checkboxGroupBtn"
+    class="field-source"
+    draggable="true"
+    type="button"
+>
+    <span class="source-icon orange">☑</span>
+
+    <span>
+        <strong>Checkbox Group</strong>
+        <small>Select multiple choices</small>
+    </span>
+
+    <b>⋮⋮</b>
+</button>
+
+<button
+    id="rangeBtn"
+    class="field-source"
+    draggable="true"
+    type="button"
+>
+    <span class="source-icon purple">⇆</span>
+
+    <span>
+        <strong>Range Slider</strong>
+        <small>Select value with slider</small>
+    </span>
+
+    <b>⋮⋮</b>
+</button>
+
+<button
+    id="yesNoBtn"
+    class="field-source"
+    draggable="true"
+    type="button"
+>
+    <span class="source-icon green">✓</span>
+
+    <span>
+        <strong>Yes / No</strong>
+        <small>Choose yes or no</small>
+    </span>
+
+    <b>⋮⋮</b>
+</button>
+
+<button
+    id="imageChoiceBtn"
+    class="field-source"
+    draggable="true"
+    type="button"
+>
+    <span class="source-icon purple">🖼</span>
+
+    <span>
+        <strong>Image Choice</strong>
+        <small>Select from images</small>
+    </span>
+
+    <b>⋮⋮</b>
+</button>
+
+
+<button
+    id="textareaBtn"
+
+
+                <button
+                    id="textareaBtn"
+                    class="field-source"
+                    draggable="true"
+                    type="button"
+                >
+                    <span class="source-icon purple">¶</span>
+
+                    <span>
+                        <strong>Textarea</strong>
+                        <small>Multi-line response</small>
+                    </span>
+
+                    <b>⋮⋮</b>
+                </button>
+
+
+                <button
+                    id="radioBtn"
+                    class="field-source"
+                    draggable="true"
+                    type="button"
+                >
+                    <span class="source-icon pink">◉</span>
+
+                    <span>
+                        <strong>Radio</strong>
+                        <small>Select one choice</small>
+                    </span>
+
+                    <b>⋮⋮</b>
+                </button>
+
+
+                <button
+                    id="fileBtn"
+                    class="field-source"
+                    draggable="true"
+                    type="button"
+                >
+                    <span class="source-icon blue">📎</span>
+
+                    <span>
+                        <strong>File Upload</strong>
+                        <small>Maximum 10 MB</small>
+                    </span>
+
+                    <b>⋮⋮</b>
+                </button>
+
+
+                <button
+                    id="ratingBtn"
+                    class="field-source"
+                    draggable="true"
+                    type="button"
+                >
+                    <span class="source-icon orange">★</span>
+
+                    <span>
+                        <strong>Rating</strong>
+                        <small>1 to 5 stars</small>
+                    </span>
+
+                    <b>⋮⋮</b>
+                </button>
+
+
+                <!-- =================================
+                     SECTION HEADING
+                ================================== -->
+
+                <button
+                    id="sectionBtn"
+                    class="field-source"
+                    draggable="true"
+                    type="button"
+                >
+                    <span class="source-icon purple">H</span>
+
+                    <span>
+                        <strong>Section Heading</strong>
+                        <small>Divide form into sections</small>
+                    </span>
+
+                    <b>⋮⋮</b>
+                </button>
+
+
+                <button
+                    id="numberBtn"
+                    class="field-source"
+                    draggable="true"
+                    type="button"
+                >
+                    <span class="source-icon blue">123</span>
+
+                    <span>
+                        <strong>Number</strong>
+                        <small>Numeric value</small>
+                    </span>
+
+                    <b>⋮⋮</b>
+                </button>
+
+
+                <button
+                    id="dateBtn"
+                    class="field-source"
+                    draggable="true"
+                    type="button"
+                >
+                    <span class="source-icon green">▣</span>
+
+                    <span>
+                        <strong>Date</strong>
+                        <small>Date selection</small>
+                    </span>
+
+                    <b>⋮⋮</b>
+                </button>
+
+
+                <button
+                    id="checkboxBtn"
+                    class="field-source"
+                    draggable="true"
+                    type="button"
+                >
+                    <span class="source-icon orange">✓</span>
+
+                    <span>
+                        <strong>Checkbox</strong>
+                        <small>True or false</small>
+                    </span>
+
+                    <b>⋮⋮</b>
+                </button>
+
+
+                <button
+                    id="dropdownBtn"
+                    class="field-source"
+                    draggable="true"
+                    type="button"
+                >
+                    <span class="source-icon pink">⌄</span>
+
+                    <span>
+                        <strong>Dropdown</strong>
+                        <small>Select one option</small>
+                    </span>
+
+                    <b>⋮⋮</b>
+                </button>
+
+            </div>
+
+
+            <div class="pro-tip">
+
+                <span>💡</span>
+
+                <div>
+                    <strong>Pro Tip</strong>
+
+                    <p>
+                        Drag fields into the builder and use
+                        Ctrl+Z / Ctrl+Y for undo and redo.
+                    </p>
+                </div>
+
+            </div>
+
+        </aside>
+
+
+        <!-- =========================================
+             BUILDER
+        ========================================== -->
+
+        <section class="panel builder-panel">
+
+            <div class="panel-title builder-title">
+
+                <div>
+                    <small>Form Builder</small>
+                    <h2>Design Canvas</h2>
+                </div>
+
+
+                <div class="builder-actions">
+
+                    <button id="undoBtn" type="button">
+                        ↩ Undo
+                    </button>
+
+                    <button id="redoBtn" type="button">
+                        ↪ Redo
+                    </button>
+
+                    <button
+                        id="previewBtn"
+                        class="preview-chip"
+                        type="button"
+                    >
+                        👁 Preview
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div id="canvas">
+
+                <div class="canvas-empty">
+
+                    <div class="empty-orbit">
+                        ＋
+                    </div>
+
+                    <h3>
+                        Start building your form
+                    </h3>
+
+                    <p>
+                        Drag fields from the left or click a
+                        component to add it.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================================
+             INSPECTOR
+        ========================================== -->
+
+        <aside
+            class="panel properties-panel"
+            id="propertiesPanel"
+        >
+
+            <div class="panel-title">
+
+                <span
+                    class="title-icon"
+                    id="toggleProperties"
+                    title="Collapse Inspector"
+                >
+                    ⚙
+                </span>
+
+                <div>
+                    <small>Field Properties</small>
+                    <h2>Inspector</h2>
+                </div>
+
+            </div>
+
+
+            <section class="property-group selected-summary">
+
+                <span class="selected-label">
+                    Selected field
+                </span>
+
+                <div class="selected-field-card">
+
+                    <span class="selected-icon">
+                        T
+                    </span>
+
+                    <div>
+
+                        <strong id="selectedFieldName">
+                            No field selected
+                        </strong>
+
+                        <small id="selectedFieldType">
+                            Choose a field from the canvas
+                        </small>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <section class="property-group">
+
+                <h3>General</h3>
+
+                <label for="labelInput">
+                    Field Label
+                </label>
+
+                <input
+                    type="text"
+                    id="labelInput"
+                    placeholder="Select a field first"
+                >
+
+
+                <label for="placeholderInput">
+                    Placeholder
+                </label>
+
+                <input
+                    type="text"
+                    id="placeholderInput"
+                    placeholder="Enter placeholder"
+                >
+
+
+                <label
+                    class="toggle-row"
+                    for="requiredInput"
+                >
+
+                    <span>
+                        <strong>Required</strong>
+                        <small>
+                            User must provide a value
+                        </small>
+                    </span>
+
+                    <input
+                        type="checkbox"
+                        id="requiredInput"
+                    >
+
+                </label>
+
+                <div
+                    id="middleNameProperty"
+                    class="toggle-row"
+                    style="display:none;"
+                >
+                    <div>
+                        <strong>Include Middle Name</strong>
+                        <small>
+                            Show optional middle name field
+                        </small>
+                    </div>
+
+                    <input
+                        id="includeMiddleName"
+                        type="checkbox"
+                    >
+                </div>
+
+            </section>
+
+
+            <section class="property-group">
+
+                <h3>Validation</h3>
+
+                <div class="two-column">
+
+                    <div>
+
+                        <label for="minLength">
+                            Min Length
+                        </label>
+
+                        <input
+                            type="number"
+                            id="minLength"
+                            value="0"
+                        >
+
+                    </div>
+
+
+                    <div>
+
+                        <label for="maxLength">
+                            Max Length
+                        </label>
+
+                        <input
+                            type="number"
+                            id="maxLength"
+                            value="100"
+                        >
+
+                    </div>
+
+
+                    <div>
+
+                        <label for="minValue">
+                            Min Value
+                        </label>
+
+                        <input
+                            type="number"
+                            id="minValue"
+                            value="0"
+                        >
+
+                    </div>
+
+
+                    <div>
+
+                        <label for="maxValue">
+                            Max Value
+                        </label>
+
+                        <input
+                            type="number"
+                            id="maxValue"
+                            value="100"
+                        >
+
+                    </div>
+
+                </div>
+
+            </section>
+            <section
+    id="matrixProperties"
+    class="property-group"
+    style="display:none;"
+>
+
+    <h3>Matrix Settings</h3>
+
+
+    <div class="matrix-property-block">
+
+        <div class="matrix-property-header">
+            <label>
+                Matrix Rows
+            </label>
+
+            <button
+                type="button"
+                id="addMatrixRowBtn"
+                class="add-option-btn"
+            >
+                + Add Row
+            </button>
+        </div>
+
+        <div
+            id="matrixRowsList"
+            class="matrix-items-list"
+        ></div>
+
+    </div>
+
+
+    <div class="matrix-property-block">
+
+        <div class="matrix-property-header">
+            <label>
+                Matrix Columns
+            </label>
+
+            <button
+                type="button"
+                id="addMatrixColumnBtn"
+                class="add-option-btn"
+            >
+                + Add Column
+            </button>
+        </div>
+
+        <div
+            id="matrixColumnsList"
+            class="matrix-items-list"
+        ></div>
+
+    </div>
+
+</section>
+
+
+            <section
+                id="dropdownOptions"
+                class="property-group dropdown-options"
+                style="display:none;"
+            >
+            
+
+                <h3>Choice Options</h3>
+
+                <div id="optionsList"></div>
+
+                <button
+                    type="button"
+                    id="addOptionBtn"
+                    class="add-option-btn"
+                >
+                    ＋ Add New Option
+                </button>
+
+            </section>
+
+
+            <section class="property-group">
+
+                <h3>Conditional Logic</h3>
+
+                <label for="ruleAction">
+                    Action
+                </label>
+
+                <select id="ruleAction">
+
+                    <option value="">
+                        -- None --
+                    </option>
+
+                    <option value="show">
+                        Show
+                    </option>
+
+                    <option value="hide">
+                        Hide
+                    </option>
+
+                    <option value="disable">
+                        Disable
+                    </option>
+
+                </select>
+
+
+                <label for="ruleField">
+                    Depends On
+                </label>
+
+                <select id="ruleField"></select>
+
+
+                <div class="two-column condition-row">
+
+                    <div>
+
+                        <label for="ruleOperator">
+                            Operator
+                        </label>
+
+                        <select id="ruleOperator">
+
+                            <option value="==">
+                                equals
+                            </option>
+
+                            <option value="!=">
+                                not equal
+                            </option>
+
+                            <option value=">">
+                                greater than
+                            </option>
+
+                            <option value="<">
+                                less than
+                            </option>
+
+                            <option value=">=">
+                                greater/equal
+                            </option>
+
+                            <option value="<=">
+                                less/equal
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div>
+
+                        <label for="ruleValue">
+                            Value
+                        </label>
+
+                        <input
+                            type="text"
+                            id="ruleValue"
+                            placeholder="Condition value"
+                        >
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <div class="help-card">
+
+                <strong>Need Help?</strong>
+
+                <p>
+                    Select a field in the builder to edit its
+                    properties and validation rules.
+                </p>
+
+            </div>
+
+        </aside>
+
+    </main>
+
+
+    <!-- =========================================
+         PREVIEW MODAL
+    ========================================== -->
+
+    <div
+        id="previewModal"
+        class="preview-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="previewModalTitle"
+    >
+
+        <section class="panel preview-panel">
+
+            <div class="panel-title preview-title">
+
+                <div>
+
+                    <small>
+                        Form Preview
+                    </small>
+
+                    <h2 id="previewModalTitle">
+                        Live Preview
+                    </h2>
+
+                </div>
+
+
+                <div class="preview-header-actions">
+
+                    <span class="live-badge">
+                        ● Updates instantly
+                    </span>
+
+                    <button
+                        type="button"
+                        id="closePreviewBtn"
+                        class="close-preview-btn"
+                        aria-label="Close Preview"
+                    >
+                        ✕
+                    </button>
+
+                </div>
+
+            </div>
+
+
+           <form id="previewForm" novalidate>
+
+                <div id="previewArea"></div>
+
+                <button
+                    type="submit"
+                    id="submitBtn"
+                >
+                    Submit Form
+                    <span>→</span>
+                </button>
+
+            </form>
+
+        </section>
+
+    </div>
+
+
+    <div
+        id="toast"
+        role="status"
+        aria-live="polite"
+    ></div>
+
+
+    <!-- =========================================
+         DELETE MODAL
+    ========================================== -->
+
+    <div
+        id="deleteModal"
+        class="modal"
+    >
+
+        <div class="modal-content">
+
+            <div class="modal-warning">
+                !
+            </div>
+
+            <h2>
+                Delete Field?
+            </h2>
+
+            <p>
+                This field and its settings will be removed.
+                You can undo the action afterwards.
+            </p>
+
+            <div class="modal-buttons">
+
+                <button
+                    id="cancelDelete"
+                    type="button"
+                >
+                    Cancel
+                </button>
+
+                <button
+                    id="confirmDelete"
+                    type="button"
+                >
+                    Delete Field
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================
+         SCRIPTS
+    ========================================== -->
+
+    <script src="js/state.js"></script>
+    <script src="js/dom.js"></script>
+    <script src="js/builder.js"></script>
+    <script src="js/ruleEngine.js"></script>
+    <script src="js/preview.js"></script>
+    <script src="js/properties.js"></script>
+    <script src="js/dragdrop.js"></script>
+    <script src="js/validation.js"></script>
+    <script src="js/save.js"></script>
+    <script src="js/load.js"></script>
+    <script src="js/history.js"></script>
+    <script src="js/shortcuts.js"></script>
+    <script src="js/export.js"></script>
+    <script src="js/import.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/app.js"></script>
+
+</body>
+
+</html>

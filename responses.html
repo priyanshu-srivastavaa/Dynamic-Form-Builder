@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Form Responses
+    </title>
+
+    <link rel="stylesheet" href="style.css">
+
+   <script src="js/authGuard.js"></script>
+
+</head>
+
+<body>
+
+    <div class="responses-page">
+
+       <header class="responses-header">
+
+    <div class="responses-topbar">
+
+        <div>
+
+            <a
+                href="dashboard.html"
+                class="responses-back-btn"
+            >
+                ← Back to Dashboard
+            </a>
+
+            <p class="responses-eyebrow">
+                Analytics Overview
+            </p>
+
+            <h1 id="responsesPageTitle">
+                Form Responses
+            </h1>
+
+            <p id="responsesPageSubtitle">
+                View submitted responses
+            </p>
+
+        </div>
+       <div class="responses-header-actions">
+
+    <div class="responses-filter-group">
+
+        <button
+            type="button"
+            class="response-filter-btn"
+            data-range="7"
+        >
+            7 Days
+        </button>
+
+        <button
+            type="button"
+            class="response-filter-btn"
+            data-range="30"
+        >
+            30 Days
+        </button>
+
+        <button
+            type="button"
+            class="response-filter-btn active"
+            data-range="all"
+        >
+            All Time
+        </button>
+
+    </div>
+
+
+    <button
+        type="button"
+        id="exportResponsesBtn"
+        class="responses-export-btn"
+    >
+        ⬇ Export CSV
+    </button>
+
+</div>
+
+    </div>
+    
+
+
+    <div
+        id="responsesStats"
+        class="responses-stats"
+    ></div>
+
+
+    <div class="responses-analytics-grid">
+
+        <div class="responses-chart-card">
+
+            <div class="responses-chart-header">
+
+                <div>
+                    <span class="analytics-card-label">
+                        Activity
+                    </span>
+
+                    <h2>
+                        Responses Over Time
+                    </h2>
+
+                    <p>
+                        Daily submission activity
+                    </p>
+                </div>
+
+            </div>
+
+            <div
+                id="responsesTimeChart"
+                class="responses-time-chart"
+            ></div>
+
+        </div>
+
+
+        <div class="responses-chart-card">
+
+            <div class="responses-chart-header">
+
+                <div>
+                    <span class="analytics-card-label">
+                        Insights
+                    </span>
+
+                    <h2>
+                        Question Analytics
+                    </h2>
+
+                    <p>
+                        Answer distribution by question
+                    </p>
+                </div>
+
+            </div>
+
+            <div
+                id="questionAnalytics"
+                class="question-analytics"
+            ></div>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+        <main class="responses-main">
+
+            <div
+                id="responsesList"
+                class="responses-list"
+            >
+
+                <div class="dashboard-empty-state">
+
+                    <h2>
+                        Loading responses...
+                    </h2>
+
+                    <p>
+                        Please wait.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </main>
+
+    </div>
+
+    <script src="js/apiAuth.js"></script>
+    <script src="js/responses.js"></script>
+
+</body>
+
+</html>

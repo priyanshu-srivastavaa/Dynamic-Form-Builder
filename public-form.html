@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Public Form</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+</head>
+
+<body>
+
+    <div class="public-form-page">
+
+        <main class="public-form-container">
+
+            <div
+                id="publicFormLoading"
+                class="public-form-loading"
+            >
+
+                <h2>
+                    Loading form...
+                </h2>
+
+                <p>
+                    Please wait.
+                </p>
+
+            </div>
+
+
+            <div
+                id="publicFormContent"
+                class="public-form-content"
+                hidden
+            >
+
+                <div class="public-form-header">
+
+                    <p class="public-form-eyebrow">
+                        Dynamic Form
+                    </p>
+
+                    <h1 id="publicFormTitle">
+                        Untitled Form
+                    </h1>
+
+                    <p>
+                        Please fill out the form below.
+                    </p>
+
+                </div>
+
+
+                <form
+                    id="publicForm"
+                    novalidate
+                >
+
+                    <div
+                        id="publicFormFields"
+                        class="public-form-fields"
+                    ></div>
+
+                    <div class="public-form-actions">
+
+                    <button
+                        type="submit"
+                        class="public-submit-btn"
+                    >
+                        Submit Response
+                    </button>
+
+                </div>
+
+                </form>
+
+            </div>
+
+        </main>
+
+    </div>
+
+
+    <script src="js/public-form.js"></script>
+
+</body>
+
+</html>

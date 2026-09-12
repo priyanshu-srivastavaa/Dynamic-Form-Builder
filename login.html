@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Login - Formify
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+    <script>
+    const existingToken =
+        localStorage.getItem(
+            "authToken"
+        );
+
+    if (existingToken) {
+
+        window.location.replace(
+            "dashboard.html"
+        );
+
+    }
+</script>
+
+</head>
+
+
+<body class="dark formify-signup-body">
+
+<div class="signup-page">
+
+
+    <!-- =========================================
+         NAVBAR
+    ========================================== -->
+
+    <header class="signup-navbar">
+
+        <a
+            href="login.html"
+            class="signup-navbar-brand"
+        >
+
+            <span class="formify-logo">
+                <span></span>
+                <span></span>
+            </span>
+
+            <strong>
+                Formify
+            </strong>
+
+        </a>
+
+
+        <nav class="signup-navbar-links">
+
+            <a href="#">
+                Features
+            </a>
+
+            <a href="#">
+                Pricing
+            </a>
+
+            <a href="#">
+                Resources
+            </a>
+
+            <a href="login.html">
+                Sign in
+            </a>
+
+            <a
+                href="register.html"
+                class="signup-navbar-button"
+            >
+                Sign up
+            </a>
+
+        </nav>
+
+    </header>
+
+
+
+    <!-- =========================================
+         MAIN
+    ========================================== -->
+
+    <main class="signup-main">
+
+
+        <!-- =====================================
+             LOGIN CARD
+        ====================================== -->
+
+        <section class="signup-card login-card">
+
+
+            <div class="signup-card-brand">
+
+                <span class="formify-logo">
+                    <span></span>
+                    <span></span>
+                </span>
+
+                <strong>
+                    Formify
+                </strong>
+
+            </div>
+
+
+            <h1>
+                Welcome back
+            </h1>
+
+
+            <p class="signup-subtitle">
+                Sign in to your account and continue building.
+            </p>
+
+
+
+            <form id="loginForm">
+
+
+                <!-- EMAIL -->
+
+                <div class="signup-field">
+
+                    <label for="loginEmail">
+                        Email
+                    </label>
+
+
+                    <div class="signup-input-wrap">
+
+                        <span class="signup-input-icon">
+
+                            <svg
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.8"
+                            >
+
+                                <rect
+                                    x="3"
+                                    y="5"
+                                    width="18"
+                                    height="14"
+                                    rx="2"
+                                ></rect>
+
+                                <path
+                                    d="m3 7 9 6 9-6"
+                                ></path>
+
+                            </svg>
+
+                        </span>
+
+
+                        <input
+                            type="email"
+                            id="loginEmail"
+                            placeholder="you@company.com"
+                            autocomplete="email"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- PASSWORD -->
+
+                <div class="signup-field">
+
+                    <div class="login-password-label">
+
+                        <label for="loginPassword">
+                            Password
+                        </label>
+
+                        <a
+                            href="forgot-password.html"
+                            class="forgot-password-link"
+                        >
+                            Forgot password?
+                        </a>
+
+                    </div>
+
+
+                    <div class="signup-input-wrap">
+
+                        <span class="signup-input-icon">
+
+                            <svg
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.8"
+                            >
+
+                                <rect
+                                    x="5"
+                                    y="10"
+                                    width="14"
+                                    height="11"
+                                    rx="2"
+                                ></rect>
+
+                                <path
+                                    d="M8 10V7a4 4 0 0 1 8 0v3"
+                                ></path>
+
+                            </svg>
+
+                        </span>
+
+
+                        <input
+                            type="password"
+                            id="loginPassword"
+                            placeholder="Enter your password"
+                            autocomplete="current-password"
+                            required
+                        >
+
+
+                        <button
+                            type="button"
+                            class="signup-eye-btn"
+                            id="toggleLoginPassword"
+                            aria-label="Show password"
+                        >
+
+                            <svg
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.8"
+                            >
+
+                                <path
+                                    d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12Z"
+                                ></path>
+
+                                <circle
+                                    cx="12"
+                                    cy="12"
+                                    r="2.5"
+                                ></circle>
+
+                            </svg>
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- REMEMBER -->
+
+                <label class="login-remember">
+
+                    <input
+                        type="checkbox"
+                        id="rememberMe"
+                    >
+
+                    <span>
+                        Remember me
+                    </span>
+
+                </label>
+
+
+
+                <!-- MESSAGE -->
+
+                <p
+                    id="loginMessage"
+                    class="signup-message"
+                ></p>
+
+
+
+                <!-- LOGIN BUTTON -->
+
+                <button
+                    type="submit"
+                    class="signup-create-btn"
+                >
+
+                    <span>
+                        Sign in
+                    </span>
+
+
+                    <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+
+                        <path
+                            d="M5 12h14"
+                        ></path>
+
+                        <path
+                            d="m14 7 5 5-5 5"
+                        ></path>
+
+                    </svg>
+
+                </button>
+
+            </form>
+
+
+
+            <!-- DIVIDER -->
+
+            <div class="signup-divider">
+
+                <span></span>
+
+                <p>
+                    or continue with
+                </p>
+
+                <span></span>
+
+            </div>
+
+
+
+            <!-- SOCIAL LOGIN -->
+
+            <div class="signup-social-buttons">
+
+
+                <!-- GOOGLE -->
+
+                <button
+                    type="button"
+                    class="signup-social-btn"
+                >
+
+                    <span class="google-icon">
+
+                        <svg
+                            width="20"
+                            height="20"
+                            viewBox="0 0 48 48"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+
+                            <path
+                                fill="#FFC107"
+                                d="M43.611 20.083H42V20H24v8h11.303C33.654 32.657 29.221 36 24 36c-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.27 4 24 4 12.955 4 4 12.955 4 24s8.955 20 20 20 20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z"
+                            />
+
+                            <path
+                                fill="#FF3D00"
+                                d="M6.306 14.691l6.571 4.819C14.655 16.108 19.001 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.27 4 24 4c-7.682 0-14.347 4.337-17.694 10.691z"
+                            />
+
+                            <path
+                                fill="#4CAF50"
+                                d="M24 44c5.167 0 9.86-1.977 13.409-5.192l-6.19-5.238C29.143 35.091 26.715 36 24 36c-5.2 0-9.625-3.33-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z"
+                            />
+
+                            <path
+                                fill="#1976D2"
+                                d="M43.611 20.083H42V20H24v8h11.303c-1.058 3.112-3.262 5.587-6.084 7.071l6.19 5.238C35.1 40.095 44 33.5 44 24c0-1.341-.138-2.65-.389-3.917z"
+                            />
+
+                        </svg>
+
+                    </span>
+
+                    Continue with Google
+
+                </button>
+
+
+
+                <!-- GITHUB -->
+
+                <button
+                    type="button"
+                    class="signup-social-btn"
+                >
+
+                    <svg
+                        class="github-icon"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                    >
+
+                        <path
+                            d="M12 .7a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2.3c-3.4.7-4.1-1.4-4.1-1.4-.5-1.4-1.3-1.8-1.3-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.6.1-3.2 0 0 1-.3 3.3 1.2a11.4 11.4 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .7Z"
+                        ></path>
+
+                    </svg>
+
+                    Continue with GitHub
+
+                </button>
+
+            </div>
+
+
+
+            <!-- REGISTER -->
+
+            <p class="signup-login-link">
+
+                Don't have an account?
+
+                <a href="register.html">
+                    Sign up
+                </a>
+
+            </p>
+
+
+
+            <!-- SECURITY -->
+
+            <div class="signup-security">
+
+                <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                >
+
+                    <rect
+                        x="6"
+                        y="10"
+                        width="12"
+                        height="10"
+                        rx="2"
+                    ></rect>
+
+                    <path
+                        d="M9 10V7a3 3 0 0 1 6 0v3"
+                    ></path>
+
+                </svg>
+
+                <span>
+                    Secure login
+                </span>
+
+                <b>•</b>
+
+                <span>
+                    Your data stays protected
+                </span>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =====================================
+             RIGHT SIDE
+        ====================================== -->
+
+        <section class="signup-marketing">
+
+
+            <p class="signup-eyebrow">
+                WELCOME BACK TO FORMIFY
+            </p>
+
+
+            <h2>
+                Build. Collect.
+                <strong>
+                    Grow.
+                </strong>
+            </h2>
+
+
+            <p class="signup-marketing-description">
+                Continue creating beautiful forms,
+                collecting responses and turning
+                your data into meaningful insights.
+            </p>
+
+
+
+            <div class="marketing-feature">
+
+                <div class="marketing-icon">
+
+                    <svg
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                    >
+
+                        <path
+                            d="M13.5 2 5 13h6l-1 9 9-13h-6l.5-7Z"
+                        ></path>
+
+                    </svg>
+
+                </div>
+
+
+                <div>
+
+                    <strong>
+                        Build faster
+                    </strong>
+
+                    <p>
+                        Create professional forms in minutes.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="marketing-feature">
+
+                <div class="marketing-icon">
+
+                    <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                    >
+
+                        <circle
+                            cx="9"
+                            cy="8"
+                            r="3"
+                        ></circle>
+
+                        <circle
+                            cx="17"
+                            cy="9"
+                            r="2.4"
+                        ></circle>
+
+                        <path
+                            d="M3 19c0-3.4 2.7-5.5 6-5.5s6 2.1 6 5.5"
+                        ></path>
+
+                    </svg>
+
+                </div>
+
+
+                <div>
+
+                    <strong>
+                        Manage responses
+                    </strong>
+
+                    <p>
+                        Keep every response organized in one place.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="marketing-feature">
+
+                <div class="marketing-icon">
+
+                    <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+
+                        <path d="M5 20v-6"></path>
+                        <path d="M10 20V9"></path>
+                        <path d="M15 20V5"></path>
+                        <path d="M20 20V2"></path>
+
+                    </svg>
+
+                </div>
+
+
+                <div>
+
+                    <strong>
+                        Powerful insights
+                    </strong>
+
+                    <p>
+                        Understand your responses with analytics.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="marketing-feature">
+
+                <div class="marketing-icon">
+
+                    <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                    >
+
+                        <path
+                            d="M12 3 20 6v5c0 5-3.3 8.3-8 10-4.7-1.7-8-5-8-10V6l8-3Z"
+                        ></path>
+
+                        <path
+                            d="m8.5 12 2.2 2.2 4.8-5"
+                        ></path>
+
+                    </svg>
+
+                </div>
+
+
+                <div>
+
+                    <strong>
+                        Secure by design
+                    </strong>
+
+                    <p>
+                        Your account and forms stay protected.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- SAME DASHBOARD ART -->
+
+            <div class="signup-dashboard-art">
+
+                <div class="art-orbit"></div>
+
+
+                <div class="art-window">
+
+                    <div class="art-window-header">
+
+                        <span class="art-dot red"></span>
+                        <span class="art-dot yellow"></span>
+                        <span class="art-dot green"></span>
+
+                    </div>
+
+
+                    <div class="art-window-body">
+
+                        <div class="art-mini-sidebar">
+
+                            <strong>
+                                F
+                            </strong>
+
+                            <span></span>
+                            <span></span>
+                            <span></span>
+
+                        </div>
+
+
+                        <div class="art-mini-form">
+
+                            <small>
+                                Create a form
+                            </small>
+
+                            <span></span>
+                            <span></span>
+                            <span></span>
+
+                            <button type="button">
+                                Publish
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="art-response-card">
+
+                    <span>
+                        Responses
+                    </span>
+
+                    <strong>
+                        1,248
+                    </strong>
+
+                    <small>
+                        ↑ +12%
+                    </small>
+
+
+                    <div class="art-chart">
+
+                        <i></i>
+                        <i></i>
+                        <i></i>
+                        <i></i>
+                        <i></i>
+                        <i></i>
+
+                    </div>
+
+                </div>
+
+
+                <div class="art-flying-icon">
+                    ➤
+                </div>
+
+
+                <div class="art-pie-icon">
+
+                    <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+
+                        <path
+                            d="M11 3a9 9 0 1 0 9 9h-9V3Z"
+                        ></path>
+
+                        <path
+                            d="M14 3.5A8 8 0 0 1 20.5 10H14V3.5Z"
+                        ></path>
+
+                    </svg>
+
+                </div>
+
+            </div>
+
+
+            <div class="signup-hand-note">
+
+                <svg
+                    viewBox="0 0 80 35"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                >
+
+                    <path
+                        d="M75 3C55 2 40 7 31 18 24 26 16 28 5 22"
+                    ></path>
+
+                    <path
+                        d="m10 17-6 5 7 4"
+                    ></path>
+
+                </svg>
+
+
+                <span>
+                    Forms for<br>
+                    a brighter tomorrow.
+                </span>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<script src="js/login.js"></script>
+
+</body>
+
+</html>

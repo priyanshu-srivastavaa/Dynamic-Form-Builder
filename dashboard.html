@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Forms Dashboard
+    </title>
+
+    <link rel="stylesheet" href="style.css">
+
+   <script src="js/authGuard.js"></script>
+
+
+</head>
+
+<body>
+
+    <div class="dashboard-shell">
+
+        <!-- =========================
+             SIDEBAR
+        ========================== -->
+
+        <aside class="dashboard-sidebar">
+
+            <div class="dashboard-brand">
+
+                <div class="dashboard-brand-icon">
+                    <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                    >
+                        <path d="M12 3 19 7 12 11 5 7 12 3Z"></path>
+                        <path d="M5 11 12 15 19 11"></path>
+                        <path d="M5 15 12 19 19 15"></path>
+                    </svg>
+                </div>
+
+                <div>
+                    <h2>
+                        Formify
+                    </h2>
+
+                    <p>
+                        Create. Share. Collect.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <nav class="dashboard-nav">
+
+                <a
+                    href="dashboard.html"
+                    class="dashboard-nav-link active"
+                >
+                   <span class="dashboard-nav-icon">
+                    <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                    >
+                        <path d="M3 11.5 12 4l9 7.5"></path>
+                        <path d="M5 10v10h14V10"></path>
+                        <path d="M9 20v-6h6v6"></path>
+                    </svg>
+                </span>
+                    Dashboard
+                </a>
+
+                <a
+                    href="dashboard.html"
+                    class="dashboard-nav-link"
+                >
+                  <!-- MY FORMS -->
+                    <span class="dashboard-nav-icon">
+                        <svg
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        >
+                            <rect x="5" y="3" width="14" height="18" rx="2"></rect>
+                            <path d="M8 7h8"></path>
+                            <path d="M8 11h8"></path>
+                            <path d="M8 15h5"></path>
+                        </svg>
+                    </span>
+                    My Forms
+                </a>
+
+                <a
+                    href="responses.html"
+                    class="dashboard-nav-link"
+                >
+                   <!-- RESPONSES -->
+                    <span class="dashboard-nav-icon">
+                        <svg
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        >
+                            <path d="M5 20V10"></path>
+                            <path d="M10 20V4"></path>
+                            <path d="M15 20v-7"></path>
+                            <path d="M20 20V7"></path>
+                        </svg>
+                    </span>
+                    Responses
+                </a>
+
+                <a
+                    href="#"
+                    class="dashboard-nav-link"
+                >
+                   <!-- ANALYTICS -->
+                    <span class="dashboard-nav-icon">
+                        <svg
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        >
+                            <path d="M4 19V5"></path>
+                            <path d="M4 19h16"></path>
+                            <path d="m7 15 4-4 3 2 5-6"></path>
+                        </svg>
+                    </span>
+                    Analytics
+                </a>
+
+                <a
+                    href="#"
+                    class="dashboard-nav-link"
+                >
+                    <!-- TEMPLATES -->
+                    <span class="dashboard-nav-icon">
+                        <svg
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        >
+                            <rect x="3" y="4" width="18" height="16" rx="2"></rect>
+                            <path d="M8 4v16"></path>
+                            <path d="M8 9h13"></path>
+                        </svg>
+                    </span>
+                    Templates
+                </a>
+
+                <a
+                    href="#"
+                    class="dashboard-nav-link"
+                >
+                   <!-- SETTINGS -->
+                <span class="dashboard-nav-icon">
+                    <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                    >
+                        <circle cx="12" cy="12" r="3"></circle>
+                        <path d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06-2.12 2.12-.06-.06a1.7 1.7 0 0 0-1.88-.34 1.7 1.7 0 0 0-1.03 1.56V20h-3v-.08a1.7 1.7 0 0 0-1.03-1.56 1.7 1.7 0 0 0-1.88.34l-.06.06-2.12-2.12.06-.06A1.7 1.7 0 0 0 7 15.4a1.7 1.7 0 0 0-1.56-1.03H5v-3h.44A1.7 1.7 0 0 0 7 10.34a1.7 1.7 0 0 0-.34-1.88l-.06-.06 2.12-2.12.06.06a1.7 1.7 0 0 0 1.88.34A1.7 1.7 0 0 0 11.7 5.1V5h3v.1a1.7 1.7 0 0 0 1.03 1.56 1.7 1.7 0 0 0 1.88-.34l.06-.06 2.12 2.12-.06.06a1.7 1.7 0 0 0-.34 1.88 1.7 1.7 0 0 0 1.56 1.03H21v3h-.44A1.7 1.7 0 0 0 19.4 15z"></path>
+                    </svg>
+                </span>
+                    Settings
+                </a>
+
+            </nav>
+
+
+            <div class="dashboard-upgrade-card">
+
+                <div class="dashboard-upgrade-icon">
+                    ♛
+                </div>
+
+                <h3>
+                    Upgrade to Pro
+                </h3>
+
+                <p>
+                    Unlock advanced features and deeper insights.
+                </p>
+
+                <button type="button">
+                    Upgrade Now →
+                </button>
+
+            </div>
+
+        </aside>
+
+
+        <!-- =========================
+             MAIN CONTENT
+        ========================== -->
+
+        <div class="dashboard-content">
+
+            <!-- TOP BAR -->
+
+            <header class="dashboard-topbar">
+
+                <div class="dashboard-top-search">
+
+                   <span class="dashboard-search-icon">
+                        <svg
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        >
+                            <circle cx="11" cy="11" r="7"></circle>
+                            <path d="m20 20-3.5-3.5"></path>
+                        </svg>
+                    </span>
+
+                    <input
+                        type="text"
+                        id="dashboardSearch"
+                        placeholder="Search forms, responses..."
+                    >
+                    <span class="dashboard-search-shortcut">
+                        Ctrl K
+                    </span>
+
+                </div>
+
+
+                <div class="dashboard-top-actions">
+
+                   <button
+                    type="button"
+                    class="dashboard-theme-btn"
+                    aria-label="Theme"
+                >
+                    <svg
+                        viewBox="0 0 24 24"
+                        width="18"
+                        height="18"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                    >
+                        <circle cx="12" cy="12" r="4"></circle>
+                        <path d="M12 2v2"></path>
+                        <path d="M12 20v2"></path>
+                        <path d="M4.93 4.93l1.41 1.41"></path>
+                        <path d="M17.66 17.66l1.41 1.41"></path>
+                        <path d="M2 12h2"></path>
+                        <path d="M20 12h2"></path>
+                        <path d="M4.93 19.07l1.41-1.41"></path>
+                        <path d="M17.66 6.34l1.41-1.41"></path>
+                    </svg>
+                    </button>
+
+                    <button
+                        type="button"
+                        class="dashboard-notification-btn"
+                        aria-label="Notifications"
+                    >
+                        <svg
+                            viewBox="0 0 24 24"
+                            width="18"
+                            height="18"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        >
+                            <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"></path>
+                            <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                        </svg>
+
+                        <span class="dashboard-notification-dot"></span>
+                    </button>
+
+                   <div class="dashboard-profile">
+                    <button
+                        type="button"
+                        id="dashboardLogoutBtn"
+                        class="dashboard-logout-btn"
+                    >
+                        Logout
+                    </button>
+
+    <div
+        class="dashboard-profile-avatar"
+        id="dashboardProfileAvatar"
+    >
+        P
+    </div>
+
+    <div class="dashboard-profile-info">
+
+        <strong id="dashboardProfileName">
+            Priyanshu
+        </strong>
+
+        <span>
+            Administrator
+        </span>
+
+    </div>
+
+    <svg
+        class="dashboard-profile-chevron"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.8"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+    >
+        <path d="m7 10 5 5 5-5"></path>
+    </svg>
+
+</div>
+
+                </div>
+
+            </header>
+
+
+            <main class="dashboard-main">
+
+                <!-- HERO -->
+
+                <section class="dashboard-hero">
+
+                    <div class="dashboard-hero-text">
+
+                        <h1>
+                            Welcome back,
+                            <span id="dashboardWelcomeName">
+                                Priyanshu
+                            </span>
+                            👋
+                        </h1>
+
+                        <p>
+                            Create, manage and track your forms all in one place.
+                        </p>
+
+                    </div>
+
+
+                    <div class="dashboard-hero-visual">
+
+                        <div class="hero-card-3d hero-card-one"></div>
+                        <div class="hero-card-3d hero-card-two"></div>
+                        <div class="hero-card-3d hero-card-three"></div>
+
+                    </div>
+
+
+                   <a
+                        href="index.html"
+                        class="dashboard-create-btn"
+                    >
+                        <svg
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        >
+                            <path d="M12 5v14"></path>
+                            <path d="M5 12h14"></path>
+                        </svg>
+
+                        <span>
+                            Create Form
+                        </span>
+                    </a>
+
+                </section>
+
+
+                <!-- STATS -->
+
+                <section class="dashboard-stats-grid">
+
+                    <article class="dashboard-stat-card">
+
+                        <div class="dashboard-stat-icon">
+                            <svg
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.8"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            >
+                                <rect x="5" y="3" width="14" height="18" rx="2"></rect>
+                                <path d="M8 7h8"></path>
+                                <path d="M8 11h8"></path>
+                                <path d="M8 15h5"></path>
+                            </svg>
+                        </div>
+
+                        <div>
+                            <strong id="dashboardTotalForms">
+                                0
+                            </strong>
+
+                            <span>
+                                Total Forms
+                            </span>
+
+                            <small id="dashboardFormsTrend">
+                                0 this month
+                            </small>
+                        </div>
+
+                    </article>
+
+
+                    <article class="dashboard-stat-card">
+
+                        <div class="dashboard-stat-icon">
+                            <svg
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.8"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            >
+                                <path d="M5 12l4 4L19 6"></path>
+                                <circle cx="12" cy="12" r="9"></circle>
+                            </svg>
+                        </div>
+
+                        <div>
+                            <strong id="dashboardPublishedForms">
+                                0
+                            </strong>
+
+                            <span>
+                                Published
+                            </span>
+
+                            <small id="dashboardPublishedTrend">
+                                0% of total
+                            </small>
+                        </div>
+
+                    </article>
+
+
+                    <article class="dashboard-stat-card">
+
+                       <div class="dashboard-stat-icon">
+                            <svg
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.8"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            >
+                                <path d="M4 20h4l10-10-4-4L4 16v4z"></path>
+                                <path d="M13 7l4 4"></path>
+                            </svg>
+                        </div>
+
+                        <div>
+                            <strong id="dashboardDraftForms">
+                                0
+                            </strong>
+
+                            <span>
+                                Drafts
+                            </span>
+
+                            <small id="dashboardDraftTrend">
+                                0 pending
+                            </small>
+                        </div>
+
+                    </article>
+
+
+                    <article class="dashboard-stat-card">
+
+                       <div class="dashboard-stat-icon">
+                            <svg
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.8"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            >
+                                <path d="M4 19V5"></path>
+                                <path d="M4 19h16"></path>
+                                <path d="M7 15l4-4 3 2 5-6"></path>
+                            </svg>
+                        </div>
+
+                        <div>
+                            <strong id="dashboardTotalResponses">
+                                0
+                            </strong>
+
+                            <span>
+                                Total Responses
+                            </span>
+
+                            <small id="dashboardResponsesTrend">
+                                0 this month
+                            </small>
+                        </div>
+
+                    </article>
+
+                </section>
+
+
+                <!-- FILTERS -->
+
+                <section class="dashboard-controls-row">
+
+                    <div class="dashboard-filter-tabs">
+
+                        <button
+                            type="button"
+                            class="dashboard-filter-tab active"
+                            data-dashboard-filter="all"
+                        >
+                            All Forms
+                            <span id="allFormsCount">0</span>
+                        </button>
+
+                        <button
+                            type="button"
+                            class="dashboard-filter-tab"
+                            data-dashboard-filter="published"
+                        >     
+                             published
+                            <span id="publishedFormsCount">0</span>
+                        </button>
+
+                        <button
+                            type="button"
+                            class="dashboard-filter-tab"
+                            data-dashboard-filter="draft"
+                        >
+                            Drafts
+                            <span id="draftFormsCount">0</span>
+                        </button>
+
+                    </div>
+
+
+                    <div class="dashboard-control-actions">
+
+                        <select id="dashboardStatusFilter">
+
+                            <option value="all">
+                                All Forms
+                            </option>
+
+                            <option value="published">
+                                Published
+                            </option>
+
+                            <option value="draft">
+                                Draft
+                            </option>
+
+                        </select>
+
+                        <select id="dashboardSort">
+
+                            <option value="newest">
+                                Newest First
+                            </option>
+
+                            <option value="oldest">
+                                Oldest First
+                            </option>
+
+                        </select>
+
+                       <button
+    type="button"
+    class="dashboard-view-toggle active"
+    data-view="grid"
+    aria-label="Grid view"
+>
+    <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.8"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+    >
+        <rect x="4" y="4" width="6" height="6" rx="1"></rect>
+        <rect x="14" y="4" width="6" height="6" rx="1"></rect>
+        <rect x="4" y="14" width="6" height="6" rx="1"></rect>
+        <rect x="14" y="14" width="6" height="6" rx="1"></rect>
+    </svg>
+</button>
+
+<button
+    type="button"
+    class="dashboard-view-toggle"
+    data-view="list"
+    aria-label="List view"
+>
+    <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.8"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+    >
+        <path d="M8 6h12"></path>
+        <path d="M8 12h12"></path>
+        <path d="M8 18h12"></path>
+        <circle cx="4" cy="6" r="1"></circle>
+        <circle cx="4" cy="12" r="1"></circle>
+        <circle cx="4" cy="18" r="1"></circle>
+    </svg>
+</button>
+
+                    </div>
+
+                </section>
+
+
+                <!-- BODY AREA -->
+
+                <section class="dashboard-workspace">
+
+                    <div class="dashboard-forms-column">
+
+                        <div
+                            id="formsDashboardList"
+                            class="forms-dashboard-list"
+                        >
+
+                            <div class="dashboard-empty-state">
+
+                                <h2>
+                                    No forms found
+                                </h2>
+
+                                <p>
+                                    Your saved forms will appear here.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <aside class="dashboard-right-panel">
+
+                        <div class="dashboard-quick-actions">
+
+                            <h3>
+                                Quick Actions
+                            </h3>
+
+
+                            <a href="index.html">
+
+                               <!-- CREATE NEW FORM -->
+                                <span class="dashboard-quick-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M12 5v14"></path>
+                                        <path d="M5 12h14"></path>
+                                        <rect x="3" y="3" width="18" height="18" rx="3"></rect>
+                                    </svg>
+                                </span>
+
+                                <div>
+                                    <strong>
+                                        Create New Form
+                                    </strong>
+
+                                    <small>
+                                        Start from scratch
+                                    </small>
+                                </div>
+
+                            </a>
+
+
+                            <a href="#">
+
+                                <!-- BROWSE TEMPLATES -->
+                                <span class="dashboard-quick-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="3" y="4" width="18" height="16" rx="2"></rect>
+                                        <path d="M8 4v16"></path>
+                                        <path d="M8 9h13"></path>
+                                    </svg>
+                                </span>
+
+                                <div>
+                                    <strong>
+                                        Browse Templates
+                                    </strong>
+
+                                    <small>
+                                        Use pre-built templates
+                                    </small>
+                                </div>
+
+                            </a>
+
+
+                            <a href="responses.html">
+
+                                <!-- VIEW ANALYTICS -->
+                                <span class="dashboard-quick-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M4 19V5"></path>
+                                        <path d="M4 19h16"></path>
+                                        <path d="m7 15 4-4 3 2 5-6"></path>
+                                    </svg>
+                                </span>
+
+                                <div>
+                                    <strong>
+                                        View Analytics
+                                    </strong>
+
+                                    <small>
+                                        Track performance
+                                    </small>
+                                </div>
+
+                            </a>
+
+
+                            <a href="#">
+
+                               <!-- SETTINGS -->
+                                <span class="dashboard-quick-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="12" cy="12" r="3"></circle>
+                                        <path d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06-2.12 2.12-.06-.06a1.7 1.7 0 0 0-1.88-.34 1.7 1.7 0 0 0-1.03 1.56V20h-3v-.08a1.7 1.7 0 0 0-1.03-1.56 1.7 1.7 0 0 0-1.88.34l-.06.06-2.12-2.12.06-.06A1.7 1.7 0 0 0 7 15.4a1.7 1.7 0 0 0-1.56-1.03H5v-3h.44A1.7 1.7 0 0 0 7 10.34a1.7 1.7 0 0 0-.34-1.88l-.06-.06 2.12-2.12.06.06a1.7 1.7 0 0 0 1.88.34A1.7 1.7 0 0 0 11.7 5.1V5h3v.1a1.7 1.7 0 0 0 1.03 1.56 1.7 1.7 0 0 0 1.88-.34l.06-.06 2.12 2.12-.06.06a1.7 1.7 0 0 0-.34 1.88 1.7 1.7 0 0 0 1.56 1.03H21v3h-.44A1.7 1.7 0 0 0 19.4 15z"></path>
+                                    </svg>
+                                </span>
+                                <div>
+                                    <strong>
+                                        Settings
+                                    </strong>
+
+                                    <small>
+                                        Manage your account
+                                    </small>
+                                </div>
+
+                            </a>
+
+                        </div>
+
+
+                        <div class="dashboard-quote-card">
+
+                            <div>
+                                ⚡
+                            </div>
+
+                            <h3>
+                                Simple forms.
+                                <br>
+                                Powerful results.
+                            </h3>
+
+                        </div>
+
+                    </aside>
+
+                </section>
+
+            </main>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         SHARE FORM MODAL
+    ========================== -->
+
+    <div
+        id="shareFormModal"
+        class="share-form-modal"
+    >
+
+        <div class="share-form-modal-content">
+
+            <div class="share-form-modal-header">
+
+                <div>
+
+                    <h2>
+                        Share Form
+                    </h2>
+
+                    <p>
+                        Share your published form
+                    </p>
+
+                </div>
+
+                <button
+                    type="button"
+                    id="closeShareModal"
+                    class="close-share-modal-btn"
+                >
+                    ✕
+                </button>
+
+            </div>
+
+
+            <div class="share-form-link-wrap">
+
+                <input
+                    type="text"
+                    id="shareFormLink"
+                    readonly
+                >
+
+                <button
+                    type="button"
+                    id="copyShareLinkBtn"
+                >
+                    Copy
+                </button>
+
+            </div>
+
+
+            <div class="share-qr-section">
+
+                <h3>
+                    QR Code
+                </h3>
+
+                <div id="shareQrCode"></div>
+
+            </div>
+
+
+            <div class="share-embed-section">
+
+                <h3>
+                    Embed Code
+                </h3>
+
+                <textarea
+                    id="shareEmbedCode"
+                    readonly
+                ></textarea>
+
+                <button
+                    type="button"
+                    id="copyEmbedCodeBtn"
+                >
+                    Copy Embed Code
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+    <script src="js/apiAuth.js"></script>
+
+    <script src="js/dashboard.js"></script>
+
+</body>
+
+</html>
