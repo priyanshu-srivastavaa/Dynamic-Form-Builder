@@ -48,30 +48,49 @@ const PORT =
 // MIDDLEWARE
 // ==========================================
 
-app.use(
-    cors({
-        origin: [
-            "http://127.0.0.1:5500",
-            "http://localhost:5500",
-            "https://dynamic-form-builder-tan-seven.vercel.app"
-        ],
-        methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-        allowedHeaders: ["Content-Type", "Authorization"]
-    })
-);
+const allowedOrigins = [
+    "http://127.0.0.1:5500",
+    "http://localhost:5500",
+    "https://dynamic-form-builder-tan-seven.vercel.app"
+];
 
-app.options(
-    /.*/,
-    cors({
-        origin: [
-            "http://127.0.0.1:5500",
-            "http://localhost:5500",
-            "https://dynamic-form-builder-tan-seven.vercel.app"
-        ],
-        methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-        allowedHeaders: ["Content-Type", "Authorization"]
-    })
-);
+app.use((req, res, next) => {
+
+    const origin = req.headers.origin;
+
+    if (
+        !origin ||
+        allowedOrigins.includes(origin)
+    ) {
+        if (origin) {
+            res.setHeader(
+                "Access-Control-Allow-Origin",
+                origin
+            );
+        }
+
+        res.setHeader(
+            "Vary",
+            "Origin"
+        );
+
+        res.setHeader(
+            "Access-Control-Allow-Methods",
+            "GET, POST, PUT, DELETE, OPTIONS"
+        );
+
+        res.setHeader(
+            "Access-Control-Allow-Headers",
+            "Content-Type, Authorization"
+        );
+    }
+
+    if (req.method === "OPTIONS") {
+        return res.sendStatus(204);
+    }
+
+    next();
+});
 
 
 app.use(
