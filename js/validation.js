@@ -1,9 +1,9 @@
 const RESPONSE_API_URL =
-    "https://dynamic-form-builder-backend-ljb.onrender.com/api/responses";
+    "https://dynamic-form-builder-backend-1jjb.onrender.com/api/responses";
 
 
 const FILE_UPLOAD_API_URL =
-    "https://dynamic-form-builder-backend-ljb.onrender.com/api/uploads";
+    "https://dynamic-form-builder-backend-1jjb.onrender.com/api/uploads";
 
 
 const MAX_FILE_SIZE =

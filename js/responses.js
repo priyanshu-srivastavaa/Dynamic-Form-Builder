@@ -8,10 +8,10 @@ let currentSelectedForm = null;
 let currentResponseFilter = "all";
 
 const RESPONSES_API_URL =
-    "https://dynamic-form-builder-backend-ljb.onrender.com/api/responses";
+    "https://dynamic-form-builder-backend-1jjb.onrender.com/api/responses";
 
 const FORMS_API_URL =
-    "https://dynamic-form-builder-backend-ljb.onrender.com/api/forms";
+    "https://dynamic-form-builder-backend-1jjb.onrender.com/api/forms";
 
 const responsesList =
     document.getElementById(

@@ -21,7 +21,7 @@ async function verifyAuth() {
 
         const response =
             await fetch(
-                "https://dynamic-form-builder-backend-ljb.onrender.com/api/auth/profile",
+                "https://dynamic-form-builder-backend-1jjb.onrender.com/api/auth/profile",
                 {
                     headers: {
                         Authorization:

@@ -1,15 +1,15 @@
 const UPLOADS_API_URL =
-    "https://dynamic-form-builder-backend-ljb.onrender.com/api/uploads";
+    "https://dynamic-form-builder-backend-1jjb.onrender.com/api/uploads";
 
 const RESPONSES_API_URL =
-    "https://dynamic-form-builder-backend-ljb.onrender.com/api/responses";
+    "https://dynamic-form-builder-backend-1jjb.onrender.com/api/responses";
 
 const publicForm =
     document.getElementById(
         "publicForm"
     );
 const FORMS_API_URL =
-    "https://dynamic-form-builder-backend-ljb.onrender.com/api/forms";
+    "https://dynamic-form-builder-backend-1jjb.onrender.com/api/forms";
 
 
 const publicFormLoading =
@@ -65,7 +65,7 @@ async function loadPublicForm() {
 
         const response =
             await fetch(
-                `https://dynamic-form-builder-backend-ljb.onrender.com/api/forms/public/${formId}`
+                `https://dynamic-form-builder-backend-1jjb.onrender.com/api/forms/public/${formId}`
             );
 
         const result =
@@ -2978,7 +2978,7 @@ async function initializeAddressDropdowns() {
 
         const response =
             await fetch(
-                "https://dynamic-form-builder-backend-ljb.onrender.com/api/locations/states"
+                "https://dynamic-form-builder-backend-1jjb.onrender.com/api/locations/states"
             );
 
         const result =
@@ -3070,7 +3070,7 @@ async function initializeAddressDropdowns() {
 
                             const cityResponse =
                                 await fetch(
-                                    `https://dynamic-form-builder-backend-ljb.onrender.com/api/locations/cities/${stateCode}`
+                                    `https://dynamic-form-builder-backend-1jjb.onrender.com/api/locations/cities/${stateCode}`
                                 );
 
                             const cityResult =

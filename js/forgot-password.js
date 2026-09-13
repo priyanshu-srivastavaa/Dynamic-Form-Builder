@@ -1,5 +1,5 @@
 const FORGOT_PASSWORD_API =
-    "https://dynamic-form-builder-backend-ljb.onrender.com/api/auth/forgot-password";
+    "https://dynamic-form-builder-backend-1jjb.onrender.com/api/auth/forgot-password";
 
 
 const forgotPasswordForm =
