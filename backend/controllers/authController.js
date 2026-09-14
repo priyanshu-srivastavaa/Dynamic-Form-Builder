@@ -2,7 +2,7 @@ const bcrypt = require("bcryptjs");
 const User = require("../models/User");
 const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
-const nodemailer = require("nodemailer");
+const { Resend } = require("resend");
 
 
 
@@ -83,109 +83,94 @@ async function forgotPassword(req, res) {
 
 
 
-        /* EMAIL TRANSPORT */
+        
 
-        const transporter =
-    nodemailer.createTransport({
+       /* RESEND CLIENT */
 
-        host: "smtp.gmail.com",
-
-        port: 587,
-
-        secure: false,
-
-        auth: {
-
-            user:
-                process.env.EMAIL_USER,
-
-            pass:
-                process.env.EMAIL_PASS
-
-        }
-
-    });
+        const resend =
+            new Resend(
+                process.env.RESEND_API_KEY
+            );
 
 
+       /* SEND EMAIL */
 
-        /* SEND EMAIL */
+await resend.emails.send({
 
-        await transporter.sendMail({
+    from:
+        "Formify <onboarding@resend.dev>",
 
-            from:
-                `"Formify" <${process.env.EMAIL_USER}>`,
+    to:
+        user.email,
 
-            to:
-                user.email,
+    subject:
+        "Reset your Formify password",
 
-            subject:
-                "Reset your Formify password",
+    html: `
+        <div style="
+            font-family:Arial,sans-serif;
+            max-width:520px;
+            margin:auto;
+            padding:30px;
+            background:#0f172a;
+            color:#ffffff;
+            border-radius:16px;
+        ">
 
-            html: `
-                <div style="
-                    font-family:Arial,sans-serif;
-                    max-width:520px;
-                    margin:auto;
-                    padding:30px;
-                    background:#0f172a;
-                    color:#ffffff;
-                    border-radius:16px;
-                ">
+            <h2 style="
+                color:#8b5cf6;
+            ">
+                Formify
+            </h2>
 
-                    <h2 style="
-                        color:#8b5cf6;
-                    ">
-                        Formify
-                    </h2>
+            <h3>
+                Reset your password
+            </h3>
 
-                    <h3>
-                        Reset your password
-                    </h3>
+            <p style="
+                color:#cbd5e1;
+                line-height:1.6;
+            ">
+                We received a request to reset
+                your Formify password.
+            </p>
 
-                    <p style="
-                        color:#cbd5e1;
-                        line-height:1.6;
-                    ">
-                        We received a request to reset
-                        your Formify password.
-                    </p>
+            <p style="
+                color:#cbd5e1;
+            ">
+                This link will expire in
+                <strong>15 minutes</strong>.
+            </p>
 
-                    <p style="
-                        color:#cbd5e1;
-                    ">
-                        This link will expire in
-                        <strong>15 minutes</strong>.
-                    </p>
+            <a
+                href="${resetLink}"
+                style="
+                    display:inline-block;
+                    margin-top:15px;
+                    padding:13px 22px;
+                    background:#7c3aed;
+                    color:white;
+                    text-decoration:none;
+                    border-radius:8px;
+                    font-weight:bold;
+                "
+            >
+                Reset Password
+            </a>
 
-                    <a
-                        href="${resetLink}"
-                        style="
-                            display:inline-block;
-                            margin-top:15px;
-                            padding:13px 22px;
-                            background:#7c3aed;
-                            color:white;
-                            text-decoration:none;
-                            border-radius:8px;
-                            font-weight:bold;
-                        "
-                    >
-                        Reset Password
-                    </a>
+            <p style="
+                margin-top:25px;
+                color:#94a3b8;
+                font-size:12px;
+            ">
+                If you didn't request this,
+                you can safely ignore this email.
+            </p>
 
-                    <p style="
-                        margin-top:25px;
-                        color:#94a3b8;
-                        font-size:12px;
-                    ">
-                        If you didn't request this,
-                        you can safely ignore this email.
-                    </p>
+        </div>
+    `
 
-                </div>
-            `
-
-        });
+});
 
 
 
