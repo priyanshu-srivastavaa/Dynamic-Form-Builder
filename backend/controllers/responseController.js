@@ -2,11 +2,84 @@ const mongoose = require("mongoose");
 const Form = require("../models/Form");
 const Response = require("../models/Response");
 
+async function getApproximateLocation(req) {
+    try {
+        const forwarded =
+            req.headers["x-forwarded-for"];
+
+        const ip =
+            forwarded
+                ? forwarded.split(",")[0].trim()
+                : req.ip;
+
+        if (
+            !ip ||
+            ip === "::1" ||
+            ip === "127.0.0.1"
+        ) {
+            return {
+                city: "",
+                region: "",
+                country: ""
+            };
+        }
+
+        const geoResponse =
+            await fetch(
+                `https://ipwho.is/${encodeURIComponent(ip)}`
+            );
+
+        if (!geoResponse.ok) {
+            throw new Error(
+                "Location lookup failed"
+            );
+        }
+
+        const geo =
+            await geoResponse.json();
+
+        if (!geo.success) {
+            return {
+                city: "",
+                region: "",
+                country: ""
+            };
+        }
+
+        return {
+            city:
+                geo.city || "",
+
+            region:
+                geo.region || "",
+
+            country:
+                geo.country || ""
+        };
+    }
+    catch (error) {
+        console.error(
+            "Location lookup error:",
+            error.message
+        );
+
+        return {
+            city: "",
+            region: "",
+            country: ""
+        };
+    }
+}
+
 
 // Submit response
 const submitResponse = async (req, res) => {
     try {
-        const { formId, answers } = req.body;
+       const {
+    formId,
+    answers,
+    metadata
+} = req.body;
 
         if (!mongoose.Types.ObjectId.isValid(formId)) {
             return res.status(400).json({
@@ -31,11 +104,36 @@ const submitResponse = async (req, res) => {
             });
         }
 
-        const savedResponse = await Response.create({
-                formId,
-                owner: existingForm.owner,
-                answers
-            });
+        const approximateLocation =
+    await getApproximateLocation(req);
+
+       const savedResponse = await Response.create({
+    formId,
+    owner: existingForm.owner,
+    answers,
+
+    metadata: {
+        visitorId:
+            metadata?.visitorId || "",
+
+        deviceType:
+            metadata?.deviceType || "Unknown",
+
+        browser:
+            metadata?.browser || "Unknown",
+
+        location: {
+            city:
+                approximateLocation.city,
+
+            region:
+                approximateLocation.region,
+
+            country:
+                approximateLocation.country
+        }
+    }
+});
 
         return res.status(201).json({
             success: true,

@@ -51,9 +51,43 @@ const responseSchema = new mongoose.Schema(
             },
 
         answers: {
-            type: [answerSchema],
-            default: []
+    type: [answerSchema],
+    default: []
+},
+
+metadata: {
+    visitorId: {
+        type: String,
+        default: ""
+    },
+
+    deviceType: {
+        type: String,
+        default: "Unknown"
+    },
+
+    browser: {
+        type: String,
+        default: "Unknown"
+    },
+
+    location: {
+        city: {
+            type: String,
+            default: ""
+        },
+
+        region: {
+            type: String,
+            default: ""
+        },
+
+        country: {
+            type: String,
+            default: ""
         }
+    }
+}
     },
     {
         timestamps: true
