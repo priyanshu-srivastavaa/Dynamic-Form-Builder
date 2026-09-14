@@ -901,6 +901,20 @@ exportResponsesBtn.addEventListener(
                             }
 
                             else if (
+                                fieldType === "file" &&
+                                typeof value === "string" &&
+                                (
+                                    value.startsWith("http://") ||
+                                    value.startsWith("https://")
+                                )
+                            ) {
+
+                                value =
+                                    "View File";
+
+                            }
+
+                            else if (
                                 Array.isArray(value)
                             ) {
 
