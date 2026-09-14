@@ -840,6 +840,7 @@ case "file":
 
                 <input
                     type="file"
+                    accept=".pdf,.doc,.docx,.xls,.xlsx,.txt,.jpg,.jpeg,.png"
                     name="${field.id}"
                     class="public-file-input"
                     onchange="

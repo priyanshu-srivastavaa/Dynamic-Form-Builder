@@ -92,15 +92,15 @@ const storage =
 // ==========================================
 
 const allowedExtensions = [
-
     ".pdf",
     ".doc",
     ".docx",
+    ".xls",
+    ".xlsx",
     ".jpg",
     ".jpeg",
     ".png",
     ".txt"
-
 ];
 
 
