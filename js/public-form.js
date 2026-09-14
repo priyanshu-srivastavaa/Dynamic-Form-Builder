@@ -2441,10 +2441,36 @@ else if (
 
     if (canvas) {
 
-        value =
-            canvas.toDataURL(
-                "image/png"
+        const signatureBlob =
+            await new Promise(
+                function (resolve) {
+
+                    canvas.toBlob(
+                        resolve,
+                        "image/png"
+                    );
+
+                }
             );
+
+        const signatureFile =
+            new File(
+                [signatureBlob],
+                `signature-${Date.now()}.png`,
+                {
+                    type: "image/png"
+                }
+            );
+
+        const uploadResult =
+            await uploadPublicFile(
+                signatureFile
+            );
+
+        value =
+            uploadResult?.data?.url ||
+            uploadResult?.url ||
+            "";
 
     }
 

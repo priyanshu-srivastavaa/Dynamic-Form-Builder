@@ -394,6 +394,27 @@ function formatResponseValue(
     // ===============================
     // SIGNATURE
     // ===============================
+    if (
+    fieldType === "signature" &&
+    typeof value === "string" &&
+    (
+        value.startsWith("http://") ||
+        value.startsWith("https://")
+    )
+) {
+
+    return `
+        <a
+            href="${escapeResponsesHtml(value)}"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="response-file-link"
+        >
+            View Signature
+        </a>
+    `;
+
+}
 
     if (
         fieldType === "signature" &&
@@ -890,15 +911,30 @@ exportResponsesBtn.addEventListener(
                                 field?.type || "";
 
                             if (
-                                fieldType === "signature" &&
-                                typeof value === "string" &&
-                                value.startsWith("data:image/")
-                            ) {
+    fieldType === "signature" &&
+    typeof value === "string"
+) {
 
-                                value =
-                                    "Signature captured";
+    if (
+        value.startsWith("http://") ||
+        value.startsWith("https://")
+    ) {
 
-                            }
+        value =
+            "View Signature";
+
+    }
+
+    else if (
+        value.startsWith("data:image/")
+    ) {
+
+        value =
+            "Signature captured";
+
+    }
+
+}
 
                             else if (
                                 fieldType === "file" &&
@@ -946,70 +982,142 @@ exportResponsesBtn.addEventListener(
             }
         );
 
-        const csv =
-            rows
-                .map(
-                    row =>
-                        row
-                            .map(
-                                cell =>
-                                    `"${String(
-                                        cell ?? ""
-                                    ).replaceAll(
-                                        '"',
-                                        '""'
-                                    )}"`
-                            )
-                            .join(",")
-                )
-                .join("\n");
+       const worksheet =
+    XLSX.utils.aoa_to_sheet(
+        rows
+    );
+    currentSelectedResponses.forEach(
+    function (responseItem, responseIndex) {
 
-        const blob =
-            new Blob(
-                [csv],
-                {
-                    type:
-                        "text/csv;charset=utf-8;"
+        allLabels.forEach(
+            function (label, labelIndex) {
+
+                const answer =
+                    responseItem.answers?.find(
+                        item =>
+                            item.label === label
+                    );
+
+                const field =
+                    Array.isArray(
+                        currentSelectedForm?.fields
+                    )
+                        ? currentSelectedForm.fields.find(
+                            item =>
+                                String(item.id) ===
+                                String(answer?.fieldId)
+                        )
+                        : null;
+
+               if (
+                    (
+                        field?.type === "file" ||
+                        field?.type === "signature"
+                    ) &&
+                    typeof answer?.value === "string" &&
+                    (
+                        answer.value.startsWith("http://") ||
+                        answer.value.startsWith("https://")
+                    )
+                ) {
+
+                    const cellAddress =
+                        XLSX.utils.encode_cell({
+                            r: responseIndex + 1,
+                            c: labelIndex + 2
+                        });
+
+                    if (
+                        worksheet[cellAddress]
+                    ) {
+
+                        worksheet[cellAddress].l = {
+                            Target:
+                                answer.value,
+                            Tooltip:
+                                "Open uploaded file"
+                        };
+
+                    }
+
+                }
+
+            }
+        );
+
+    }
+);
+
+const columnWidths =
+    headers.map(
+        function (header, columnIndex) {
+
+            let maxLength =
+                String(header).length;
+
+            rows.forEach(
+                function (row) {
+
+                    const cellValue =
+                        row[columnIndex] ?? "";
+
+                    const cellLength =
+                        String(cellValue).length;
+
+                    if (
+                        cellLength >
+                        maxLength
+                    ) {
+
+                        maxLength =
+                            cellLength;
+
+                    }
+
                 }
             );
 
-        const url =
-            URL.createObjectURL(
-                blob
-            );
+            return {
+                wch:
+                    Math.min(
+                        Math.max(
+                            maxLength + 2,
+                            12
+                        ),
+                        35
+                    )
+            };
 
-        const link =
-            document.createElement(
-                "a"
-            );
+        }
+    );
 
-        const fileName =
-            (
-                currentSelectedForm?.title ||
-                "form"
-            )
-                .replace(
-                    /[^a-z0-9]/gi,
-                    "_"
-                )
-                .toLowerCase();
+worksheet["!cols"] =
+    columnWidths;
 
-        link.href = url;
+const workbook =
+    XLSX.utils.book_new();
 
-        link.download =
-            `${fileName}_responses.csv`;
+XLSX.utils.book_append_sheet(
+    workbook,
+    worksheet,
+    "Responses"
+);
 
-        document.body.appendChild(
-            link
-        );
+const fileName =
+    (
+        currentSelectedForm?.title ||
+        "form"
+    )
+        .replace(
+            /[^a-z0-9]/gi,
+            "_"
+        )
+        .toLowerCase();
 
-        link.click();
-
-        link.remove();
-
-        URL.revokeObjectURL(
-            url
-        );
+XLSX.writeFile(
+    workbook,
+    `${fileName}_responses.xlsx`
+);
 
     }
 );
