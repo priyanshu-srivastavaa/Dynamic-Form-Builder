@@ -1974,6 +1974,65 @@ case "password":
             .join("");
 
 }
+
+function getVisitorId() {
+    let visitorId = localStorage.getItem("formifyVisitorId");
+
+    if (!visitorId) {
+        visitorId =
+            "visitor_" +
+            Date.now() +
+            "_" +
+            Math.random().toString(36).slice(2, 10);
+
+        localStorage.setItem(
+            "formifyVisitorId",
+            visitorId
+        );
+    }
+
+    return visitorId;
+}
+
+function getDeviceType() {
+    const ua = navigator.userAgent.toLowerCase();
+
+    if (/tablet|ipad/.test(ua)) {
+        return "Tablet";
+    }
+
+    if (/mobile|android|iphone/.test(ua)) {
+        return "Mobile";
+    }
+
+    return "Desktop";
+}
+
+function getBrowserName() {
+    const ua = navigator.userAgent;
+
+    if (ua.includes("Edg/")) {
+        return "Edge";
+    }
+
+    if (ua.includes("Firefox/")) {
+        return "Firefox";
+    }
+
+    if (ua.includes("Chrome/")) {
+        return "Chrome";
+    }
+
+    if (
+        ua.includes("Safari/") &&
+        !ua.includes("Chrome/")
+    ) {
+        return "Safari";
+    }
+
+    return "Other";
+}
+
 publicForm.addEventListener(
     "submit",
     async function(event) {
@@ -2514,13 +2573,24 @@ else if (
                         },
 
                         body:
-                            JSON.stringify({
-                                formId:
-                                    formId,
+                           JSON.stringify({
+    formId:
+        formId,
 
-                                answers:
-                                    answers
-                            })
+    answers:
+        answers,
+
+    metadata: {
+        visitorId:
+            getVisitorId(),
+
+        deviceType:
+            getDeviceType(),
+
+        browser:
+            getBrowserName()
+    }
+})
                     }
                 );
 

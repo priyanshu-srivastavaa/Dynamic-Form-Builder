@@ -22,76 +22,308 @@
 
 <body>
 
-    <div class="responses-page">
+   <div class="responses-app-shell">
+
+    <aside class="responses-sidebar">
+
+        <div class="responses-sidebar-brand">
+
+            <div class="responses-brand-logo">
+                ◆
+            </div>
+
+            <div>
+                <strong>
+                    Formify
+                </strong>
+
+                <span>
+                    Build. Share. Collect.
+                </span>
+            </div>
+
+        </div>
+
+
+        <nav class="responses-sidebar-nav">
+
+            <a
+                href="dashboard.html"
+                class="responses-sidebar-link"
+            >
+                <span class="responses-nav-icon">
+                    ⌂
+                </span>
+
+                <span>
+                    Dashboard
+                </span>
+            </a>
+
+
+            <a
+                href="responses.html"
+                class="responses-sidebar-link active"
+            >
+                <span class="responses-nav-icon">
+                    ▤
+                </span>
+
+                <span>
+                    Responses
+                </span>
+            </a>
+
+        </nav>
+
+        <div class="responses-sidebar-section-label">
+    Workspace
+</div>
+
+<div class="responses-sidebar-coming-soon">
+
+    <div class="responses-sidebar-coming-item">
+        <span class="responses-nav-icon">
+            ▦
+        </span>
+
+        <span>
+            Forms
+        </span>
+
+        <small>
+            Soon
+        </small>
+    </div>
+
+    <div class="responses-sidebar-coming-item">
+        <span class="responses-nav-icon">
+            ◫
+        </span>
+
+        <span>
+            Analytics
+        </span>
+
+        <small>
+            Soon
+        </small>
+    </div>
+
+    <div class="responses-sidebar-coming-item">
+        <span class="responses-nav-icon">
+            ◇
+        </span>
+
+        <span>
+            Templates
+        </span>
+
+        <small>
+            Soon
+        </small>
+    </div>
+
+    <div class="responses-sidebar-coming-item">
+        <span class="responses-nav-icon">
+            ⚙
+        </span>
+
+        <span>
+            Settings
+        </span>
+
+        <small>
+            Soon
+        </small>
+    </div>
+
+</div>
+
+
+        <div class="responses-sidebar-spacer"></div>
+
+
+        <div class="responses-sidebar-card">
+
+            <div class="responses-sidebar-card-icon">
+                ✦
+            </div>
+
+            <strong>
+                Turn ideas into powerful forms.
+            </strong>
+
+            <p>
+                Create, share and collect responses with Formify.
+            </p>
+
+        </div>
+
+    </aside>
+
+
+    <section class="responses-content-shell">
+
+
+        <div class="responses-global-topbar">
+
+            <div class="responses-global-search">
+
+                <span>
+                    🔍
+                </span>
+
+                <input
+                    type="search"
+                    id="responsesSearchInput"
+                    placeholder="Search responses..."
+                    autocomplete="off"
+                >
+
+            </div>
+
+           <div class="responses-topbar-status">
+
+    <span class="responses-live-dot"></span>
+
+    <div>
+        <strong>
+            Formify Analytics
+        </strong>
+
+        <span>
+            Live response data
+        </span>
+    </div>
+
+</div>
+
+        </div>
+
+
+        <div class="responses-page">
 
        <header class="responses-header">
 
     <div class="responses-topbar">
 
-        <div>
+    <div class="responses-title-side">
 
-            <a
-                href="dashboard.html"
-                class="responses-back-btn"
-            >
-                ← Back to Dashboard
-            </a>
+        <a
+            href="dashboard.html"
+            class="responses-back-btn"
+        >
+            ← Back to Dashboard
+        </a>
 
-            <p class="responses-eyebrow">
-                Analytics Overview
-            </p>
+
+        <div class="responses-title-row">
 
             <h1 id="responsesPageTitle">
                 Form Responses
             </h1>
 
-            <p id="responsesPageSubtitle">
-                View submitted responses
-            </p>
+            <span
+                id="responsesFormStatus"
+                class="responses-status-badge"
+            >
+                Loading
+            </span>
 
         </div>
-       <div class="responses-header-actions">
 
-    <div class="responses-filter-group">
 
-        <button
-            type="button"
-            class="response-filter-btn"
-            data-range="7"
+        <p
+            id="responsesPageSubtitle"
+            class="responses-header-count"
         >
-            7 Days
-        </button>
+            View submitted responses
+        </p>
 
-        <button
-            type="button"
-            class="response-filter-btn"
-            data-range="30"
-        >
-            30 Days
-        </button>
 
-        <button
-            type="button"
-            class="response-filter-btn active"
-            data-range="all"
-        >
-            All Time
-        </button>
+        <div class="responses-form-meta">
+
+            <span id="responsesCreatedAt">
+                Created —
+            </span>
+
+            <span class="responses-meta-dot">
+                •
+            </span>
+
+            <span id="responsesUpdatedAt">
+                Last updated —
+            </span>
+
+        </div>
 
     </div>
 
 
-    <button
-        type="button"
-        id="exportResponsesBtn"
-        class="responses-export-btn"
-    >
-        ⬇ Export Excel
-    </button>
+    <div class="responses-header-actions">
+
+        <div class="responses-form-actions">
+
+            <button
+                type="button"
+                id="previewResponseFormBtn"
+                class="responses-preview-btn"
+            >
+                👁 Preview Form
+            </button>
+
+            <button
+                type="button"
+                id="shareResponseFormBtn"
+                class="responses-share-btn"
+            >
+                🔗 Share Form
+            </button>
+
+        </div>
+
+
+        <div class="responses-filter-group">
+
+            <button
+                type="button"
+                class="response-filter-btn"
+                data-range="7"
+            >
+                7 Days
+            </button>
+
+            <button
+                type="button"
+                class="response-filter-btn"
+                data-range="30"
+            >
+                30 Days
+            </button>
+
+            <button
+                type="button"
+                class="response-filter-btn active"
+                data-range="all"
+            >
+                All Time
+            </button>
+
+        </div>
+
+
+        <button
+            type="button"
+            id="exportResponsesBtn"
+            class="responses-export-btn"
+        >
+            ⬇ Export Excel
+        </button>
+
+    </div>
 
 </div>
-
-    </div>
     
 
 
@@ -101,69 +333,307 @@
     ></div>
 
 
-    <div class="responses-analytics-grid">
+   <div class="responses-analytics-grid">
 
-        <div class="responses-chart-card">
+    <!-- ==========================================
+         RESPONSES OVER TIME
+    =========================================== -->
 
-            <div class="responses-chart-header">
+    <div class="responses-chart-card">
 
-                <div>
-                    <span class="analytics-card-label">
-                        Activity
-                    </span>
+        <div class="responses-chart-header">
 
-                    <h2>
-                        Responses Over Time
-                    </h2>
+            <div>
+                <span class="analytics-card-label">
+                    Activity
+                </span>
 
-                    <p>
-                        Daily submission activity
-                    </p>
-                </div>
+                <h2>
+                    Responses Over Time
+                </h2>
 
+                <p>
+                    Daily submission activity
+                </p>
             </div>
-
-            <div
-                id="responsesTimeChart"
-                class="responses-time-chart"
-            ></div>
 
         </div>
 
+        <div
+            id="responsesTimeChart"
+            class="responses-time-chart"
+        ></div>
 
-        <div class="responses-chart-card">
+    </div>
 
-            <div class="responses-chart-header">
 
-                <div>
-                    <span class="analytics-card-label">
-                        Insights
-                    </span>
+    <!-- ==========================================
+         DEVICE BREAKDOWN
+    =========================================== -->
 
-                    <h2>
-                        Question Analytics
-                    </h2>
+    <div class="responses-chart-card responses-device-card">
 
-                    <p>
-                        Answer distribution by question
-                    </p>
-                </div>
+        <div class="responses-chart-header">
 
+            <div>
+                <span class="analytics-card-label">
+                    Devices
+                </span>
+
+                <h2>
+                    Device Breakdown
+                </h2>
+
+                <p>
+                    Devices used to submit the form
+                </p>
             </div>
 
-            <div
-                id="questionAnalytics"
-                class="question-analytics"
-            ></div>
+        </div>
+
+        <div
+            id="deviceBreakdownChart"
+            class="device-breakdown-chart"
+        >
+            <p class="analytics-empty-state">
+                No device data available
+            </p>
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ==========================================
+     SECOND ANALYTICS ROW
+=========================================== -->
+
+<section class="responses-secondary-analytics-grid">
+
+
+    <!-- QUESTION ANALYTICS -->
+
+    <div class="responses-chart-card responses-question-card">
+
+        <div class="responses-chart-header">
+
+            <div>
+                <span class="analytics-card-label">
+                    Insights
+                </span>
+
+                <h2>
+                    Question Analytics
+                </h2>
+
+                <p>
+                    Answer distribution by question
+                </p>
+            </div>
+
+        </div>
+
+        <div
+            id="questionAnalytics"
+            class="question-analytics"
+        ></div>
+
+    </div>
+
+
+    <!-- TOP LOCATIONS -->
+
+    <div class="responses-analytics-card">
+
+        <div class="responses-section-heading">
+
+            <h2>
+                Top Locations
+            </h2>
+
+            <p>
+                Approximate location from submissions
+            </p>
+
+        </div>
+
+        <div id="topLocationsChart">
+
+            <p class="analytics-empty-state">
+                No location data available
+            </p>
 
         </div>
 
     </div>
 
+
+    <!-- BROWSER USAGE -->
+
+    <div class="responses-analytics-card">
+
+        <div class="responses-section-heading">
+
+            <h2>
+                Browser Usage
+            </h2>
+
+            <p>
+                Based on submitted responses
+            </p>
+
+        </div>
+
+        <div id="browserUsageChart">
+
+            <p class="analytics-empty-state">
+                No browser data available
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+    <div class="responses-insights-grid">
+
+    <section class="responses-insight-card">
+
+        <div class="responses-insight-header">
+
+            <div>
+                <span class="analytics-card-label">
+                    Live Activity
+                </span>
+
+                <h2>
+                    Recent Activity
+                </h2>
+
+                <p>
+                    Latest form submissions
+                </p>
+            </div>
+
+            <div class="insight-header-icon">
+                ⚡
+            </div>
+
+        </div>
+
+        <div
+            id="recentResponsesActivity"
+            class="recent-responses-activity"
+        ></div>
+
+    </section>
+
+
+    <section class="responses-insight-card">
+
+        <div class="responses-insight-header">
+
+            <div>
+                <span class="analytics-card-label">
+                    Upload Insights
+                </span>
+
+                <h2>
+                    File Upload Stats
+                </h2>
+
+                <p>
+                    Files received through this form
+                </p>
+            </div>
+
+            <div class="insight-header-icon">
+                📁
+            </div>
+
+        </div>
+
+        <div
+            id="responseFileStats"
+            class="response-file-stats"
+        ></div>
+
+    </section>
+
+</div>
+
 </header>
 
 
         <main class="responses-main">
+           <div class="responses-table-toolbar">
+
+    <div class="responses-table-toolbar-left">
+
+        <span class="analytics-card-label">
+            Submissions
+        </span>
+
+        <h2>
+            Responses
+        </h2>
+
+        <p>
+            Review and manage submitted responses
+        </p>
+
+    </div>
+
+
+    <div class="responses-table-toolbar-right">
+
+        <div class="responses-table-search">
+
+            <span>
+                🔍
+            </span>
+
+            <input
+                type="search"
+                id="responsesTableSearchInput"
+                placeholder="Search responses..."
+                autocomplete="off"
+            >
+
+        </div>
+
+
+        <button
+            type="button"
+            id="responsesFilterMenuBtn"
+            class="responses-table-filter-btn"
+        >
+            ⚙ Filters
+        </button>
+
+
+        <button
+            type="button"
+            id="responsesTableExportBtn"
+            class="responses-table-export-btn"
+        >
+            ⬇ Export
+        </button>
+
+    </div>
+
+</div>
+
+
+<div class="responses-table-summary">
+
+    <span id="responsesShowingSummary">
+        Showing 0 responses
+    </span>
+
+</div>
 
             <div
                 id="responsesList"
@@ -183,10 +653,19 @@
                 </div>
 
             </div>
+            <div
+                id="responsesPagination"
+                class="responses-pagination"
+            ></div>
 
         </main>
 
     </div>
+
+        </section>
+
+</div>
+
 
     <script src="js/apiAuth.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
