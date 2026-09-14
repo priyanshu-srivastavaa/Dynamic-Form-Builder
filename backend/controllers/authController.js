@@ -95,7 +95,7 @@ async function forgotPassword(req, res) {
 
        /* SEND EMAIL */
 
-await resend.emails.send({
+const { data, error } = await resend.emails.send({
 
     from:
         "Formify <onboarding@resend.dev>",
@@ -171,6 +171,10 @@ await resend.emails.send({
     `
 
 });
+
+if (error) {
+    throw error;
+}
 
 
 
