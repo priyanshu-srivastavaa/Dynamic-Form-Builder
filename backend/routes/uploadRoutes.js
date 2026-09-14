@@ -14,6 +14,22 @@ const path =
 const fs =
     require("fs");
 
+const { v2: cloudinary } =
+    require("cloudinary");
+
+    cloudinary.config({
+
+    cloud_name:
+        process.env.CLOUDINARY_CLOUD_NAME,
+
+    api_key:
+        process.env.CLOUDINARY_API_KEY,
+
+    api_secret:
+        process.env.CLOUDINARY_API_SECRET
+
+});
+
 const {
     uploadFile
 } = require(
@@ -68,55 +84,7 @@ if (
 // ==========================================
 
 const storage =
-    multer.diskStorage({
-
-        destination:
-            function (
-                req,
-                file,
-                callback
-            ) {
-
-                callback(
-                    null,
-                    uploadDirectory
-                );
-
-            },
-
-
-        filename:
-            function (
-                req,
-                file,
-                callback
-            ) {
-
-                const extension =
-                    path.extname(
-                        file.originalname
-                    )
-                    .toLowerCase();
-
-
-                const uniqueName =
-                    Date.now() +
-                    "-" +
-                    Math.round(
-                        Math.random() *
-                        1E9
-                    ) +
-                    extension;
-
-
-                callback(
-                    null,
-                    uniqueName
-                );
-
-            }
-
-    });
+    multer.memoryStorage();
 
 
 // ==========================================

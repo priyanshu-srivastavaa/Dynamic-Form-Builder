@@ -2,6 +2,40 @@
 // FILE UPLOAD CONTROLLER
 // ==========================================
 
+const { v2: cloudinary } =
+    require("cloudinary");
+
+    function uploadToCloudinary(fileBuffer) {
+
+    return new Promise(
+        function (resolve, reject) {
+
+            const stream =
+                cloudinary.uploader.upload_stream(
+                    {
+                        folder:
+                            "formify-uploads",
+                        resource_type:
+                            "auto"
+                    },
+                    function (error, result) {
+
+                        if (error) {
+                            return reject(error);
+                        }
+
+                        resolve(result);
+
+                    }
+                );
+
+            stream.end(fileBuffer);
+
+        }
+    );
+
+}
+
 const uploadFile =
     async function (req, res) {
 
@@ -23,8 +57,10 @@ const uploadFile =
             }
 
 
-            const fileUrl =
-                `${req.protocol}://${req.get("host")}/uploads/${req.file.filename}`;
+           const uploadResult =
+            await uploadToCloudinary(
+                req.file.buffer
+            );
 
 
             return res
@@ -41,8 +77,8 @@ const uploadFile =
                         originalName:
                             req.file.originalname,
 
-                        storedName:
-                            req.file.filename,
+                       storedName:
+                         uploadResult.public_id,
 
                         mimeType:
                             req.file.mimetype,
@@ -50,8 +86,8 @@ const uploadFile =
                         size:
                             req.file.size,
 
-                        url:
-                            fileUrl
+                       url:
+                         uploadResult.secure_url
 
                     }
 
