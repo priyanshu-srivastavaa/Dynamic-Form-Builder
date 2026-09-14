@@ -959,18 +959,36 @@ exportResponsesBtn.addEventListener(
 
                         }
 
-                        else if (
-                            typeof value ===
-                            "object" &&
-                            value !== null
-                        ) {
+                       else if (
+    fieldType === "name" &&
+    typeof value === "object" &&
+    value !== null
+) {
 
-                            value =
-                        value.originalName ||
-                        value.url ||
-                        JSON.stringify(value);
+    value =
+        value.fullName ||
+        [
+            value.firstName,
+            value.middleName,
+            value.lastName
+        ]
+            .filter(Boolean)
+            .join(" ");
 
-                        }
+}
+
+else if (
+    typeof value ===
+    "object" &&
+    value !== null
+) {
+
+    value =
+        value.originalName ||
+        value.url ||
+        JSON.stringify(value);
+
+}
 
                         row.push(value);
 
