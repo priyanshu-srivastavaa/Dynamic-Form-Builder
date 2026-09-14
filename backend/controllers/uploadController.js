@@ -5,7 +5,7 @@
 const { v2: cloudinary } =
     require("cloudinary");
 
-    function uploadToCloudinary(fileBuffer) {
+   function uploadToCloudinary(fileBuffer, originalName) {
 
     return new Promise(
         function (resolve, reject) {
@@ -15,9 +15,20 @@ const { v2: cloudinary } =
                     {
                         folder:
                             "formify-uploads",
+
                         resource_type:
-                            "auto"
+                            "auto",
+
+                        use_filename:
+                            true,
+
+                        unique_filename:
+                            true,
+
+                        filename_override:
+                            originalName
                     },
+
                     function (error, result) {
 
                         if (error) {
@@ -58,9 +69,10 @@ const uploadFile =
 
 
            const uploadResult =
-            await uploadToCloudinary(
-                req.file.buffer
-            );
+    await uploadToCloudinary(
+        req.file.buffer,
+        req.file.originalname
+    );
 
 
             return res
