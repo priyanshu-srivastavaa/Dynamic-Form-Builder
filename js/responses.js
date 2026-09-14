@@ -873,11 +873,36 @@ exportResponsesBtn.addEventListener(
                             );
 
                         let value =
-                            answer?.value ?? "";
+                                answer?.value ?? "";
 
-                        if (
-                            Array.isArray(value)
-                        ) {
+                            const field =
+                                Array.isArray(
+                                    currentSelectedForm?.fields
+                                )
+                                    ? currentSelectedForm.fields.find(
+                                        item =>
+                                            String(item.id) ===
+                                            String(answer?.fieldId)
+                                    )
+                                    : null;
+
+                            const fieldType =
+                                field?.type || "";
+
+                            if (
+                                fieldType === "signature" &&
+                                typeof value === "string" &&
+                                value.startsWith("data:image/")
+                            ) {
+
+                                value =
+                                    "Signature captured";
+
+                            }
+
+                            else if (
+                                Array.isArray(value)
+                            ) {
 
                             value =
                                 value.join(", ");
@@ -891,9 +916,9 @@ exportResponsesBtn.addEventListener(
                         ) {
 
                             value =
-                                value.url ||
-                                value.originalName ||
-                                JSON.stringify(value);
+                        value.originalName ||
+                        value.url ||
+                        JSON.stringify(value);
 
                         }
 
