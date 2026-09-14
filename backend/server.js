@@ -11,6 +11,9 @@ const cors =
 const dotenv =
     require("dotenv");
 
+const path =
+    require("path");
+
 const connectDB =
     require("./config/db");
 
@@ -112,7 +115,12 @@ app.use(
 // ==========================================
 
 const uploadDirectory =
-    "D:/mare project/dynamic-form-uploads";
+    path.join(
+        __dirname,
+        "..",
+        "..",
+        "dynamic-form-uploads"
+    );
 
 
 // ==========================================
