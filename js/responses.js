@@ -87,6 +87,36 @@ const responsesFilterMenuBtn =
         "responsesFilterMenuBtn"
     );
 
+const responsesFilterDropdown =
+    document.getElementById(
+        "responsesFilterDropdown"
+    );
+
+const fileResponsesModal =
+    document.getElementById(
+        "fileResponsesModal"
+    );
+
+const fileResponsesModalTitle =
+    document.getElementById(
+        "fileResponsesModalTitle"
+    );
+
+const fileResponsesModalSubtitle =
+    document.getElementById(
+        "fileResponsesModalSubtitle"
+    );
+
+const fileResponsesModalContent =
+    document.getElementById(
+        "fileResponsesModalContent"
+    );
+
+const fileResponsesModalClose =
+    document.getElementById(
+        "fileResponsesModalClose"
+    );
+
 
 
 let currentSelectedResponses = [];
@@ -2738,25 +2768,50 @@ document.addEventListener(
         currentResponseFilter =
             button.dataset.range;
 
+
+        // Same range wale saare buttons ko active rakho
         document
             .querySelectorAll(
                 ".response-filter-btn"
             )
             .forEach(
                 function(item) {
-                    item.classList.remove(
-                        "active"
+
+                    item.classList.toggle(
+                        "active",
+                        item.dataset.range ===
+                            currentResponseFilter
                     );
+
                 }
             );
 
-        button.classList.add(
-            "active"
-        );
 
+        // Page 1 se result show karo
         currentResponsePage = 1;
 
+
+        // Real filtering
         applyResponseFilter();
+
+
+        // Dropdown close karo
+        if (responsesFilterDropdown) {
+
+            responsesFilterDropdown.hidden =
+                true;
+
+        }
+
+
+        if (responsesFilterMenuBtn) {
+
+            responsesFilterMenuBtn.setAttribute(
+                "aria-expanded",
+                "false"
+            );
+
+        }
 
     }
 );
@@ -2857,12 +2912,18 @@ function applyResponseFilter() {
         filteredResponses
     );
 
-    renderDeviceBreakdown(filteredResponses);
-     renderBrowserUsage(filteredResponses);
-     renderTopLocations(filteredResponses);
+    setupInteractiveFileDonut();
 
-    currentFilteredResponses =
-    filteredResponses;
+   renderDeviceBreakdown(filteredResponses);
+renderBrowserUsage(filteredResponses);
+renderTopLocations(filteredResponses);
+
+renderSubmissionInsights(
+    filteredResponses
+);
+
+currentFilteredResponses =
+filteredResponses;
 
     renderPaginatedResponses();
 
@@ -2877,6 +2938,602 @@ function applyResponseFilter() {
 
 }
 
+
+}
+
+// ==========================================
+// SUBMISSION INSIGHTS
+// ==========================================
+
+function renderSubmissionInsights(
+    selectedResponses
+) {
+
+    const peakTimeElement =
+        document.getElementById(
+            "submissionPeakTime"
+        );
+
+    const busiestDayElement =
+        document.getElementById(
+            "submissionBusiestDay"
+        );
+
+    const completionElement =
+        document.getElementById(
+            "submissionAverageCompletion"
+        );
+
+    const totalResponsesElement =
+        document.getElementById(
+            "submissionTotalResponses"
+        );
+
+    const uploadedFilesElement =
+        document.getElementById(
+            "submissionUploadedFiles"
+        );
+
+    const lastResponseElement =
+        document.getElementById(
+            "submissionLastResponse"
+        );
+
+    const heatmapElement =
+        document.getElementById(
+            "submissionActivityHeatmap"
+        );
+
+    const periodElement =
+        document.getElementById(
+            "submissionInsightsPeriod"
+        );
+
+
+    if (
+        !peakTimeElement ||
+        !busiestDayElement ||
+        !completionElement ||
+        !totalResponsesElement ||
+        !uploadedFilesElement ||
+        !lastResponseElement ||
+        !heatmapElement
+    ) {
+        return;
+    }
+
+
+    // ======================================
+    // PERIOD
+    // ======================================
+
+    if (periodElement) {
+
+        periodElement.textContent =
+            currentResponseFilter === "7"
+                ? "Last 7 Days"
+                : currentResponseFilter === "30"
+                    ? "Last 30 Days"
+                    : "All Time";
+
+    }
+
+
+    // ======================================
+    // TOTAL RESPONSES
+    // ======================================
+
+    totalResponsesElement.textContent =
+        selectedResponses.length;
+
+
+    // ======================================
+    // VALID RESPONSE DATES
+    // ======================================
+
+    const validResponses =
+        selectedResponses
+            .filter(
+                function(responseItem) {
+
+                    if (!responseItem.createdAt) {
+                        return false;
+                    }
+
+                    const date =
+                        new Date(
+                            responseItem.createdAt
+                        );
+
+                    return !Number.isNaN(
+                        date.getTime()
+                    );
+
+                }
+            );
+
+
+    // ======================================
+    // PEAK SUBMISSION TIME
+    // ======================================
+
+    const hourCounts =
+        new Array(24).fill(0);
+
+
+    validResponses.forEach(
+        function(responseItem) {
+
+            const date =
+                new Date(
+                    responseItem.createdAt
+                );
+
+            hourCounts[
+                date.getHours()
+            ]++;
+
+        }
+    );
+
+
+    let peakHour = -1;
+    let peakHourCount = 0;
+
+
+    hourCounts.forEach(
+        function(count, hour) {
+
+            if (count > peakHourCount) {
+
+                peakHourCount = count;
+                peakHour = hour;
+
+            }
+
+        }
+    );
+
+
+    function formatHour(hour) {
+
+        const date =
+            new Date();
+
+        date.setHours(
+            hour,
+            0,
+            0,
+            0
+        );
+
+        return date.toLocaleTimeString(
+            "en-US",
+            {
+                hour: "numeric",
+                minute: "2-digit",
+                hour12: true
+            }
+        );
+
+    }
+
+
+    peakTimeElement.textContent =
+        peakHour >= 0
+            ? `${formatHour(
+                peakHour
+            )} – ${formatHour(
+                (peakHour + 1) % 24
+            )}`
+            : "No data";
+
+
+    // ======================================
+    // BUSIEST DAY
+    // ======================================
+
+    const dayCounts = {};
+
+
+    validResponses.forEach(
+        function(responseItem) {
+
+            const date =
+                new Date(
+                    responseItem.createdAt
+                );
+
+            const day =
+                date.toLocaleDateString(
+                    "en-US",
+                    {
+                        weekday: "long"
+                    }
+                );
+
+            dayCounts[day] =
+                (dayCounts[day] || 0) + 1;
+
+        }
+    );
+
+
+    const busiestDayEntry =
+        Object.entries(
+            dayCounts
+        )
+            .sort(
+                function(a, b) {
+                    return b[1] - a[1];
+                }
+            )[0];
+
+
+    busiestDayElement.textContent =
+        busiestDayEntry
+            ? busiestDayEntry[0]
+            : "No data";
+
+
+    // ======================================
+    // AVERAGE COMPLETION
+    // ======================================
+
+    const formFields =
+        Array.isArray(
+            currentSelectedForm?.fields
+        )
+            ? currentSelectedForm.fields.filter(
+                function(field) {
+                    return field.type !== "section";
+                }
+            )
+            : [];
+
+
+    let totalAnswered = 0;
+
+
+    selectedResponses.forEach(
+        function(responseItem) {
+
+            const answers =
+                Array.isArray(
+                    responseItem.answers
+                )
+                    ? responseItem.answers
+                    : [];
+
+
+            answers.forEach(
+                function(answer) {
+
+                    const value =
+                        answer.value;
+
+
+                    const hasValue =
+                        Array.isArray(value)
+                            ? value.length > 0
+                            : value &&
+                              typeof value === "object"
+                                ? Object.keys(value)
+                                    .length > 0
+                                : value !== null &&
+                                  value !== undefined &&
+                                  String(value)
+                                    .trim() !== "";
+
+
+                    if (hasValue) {
+                        totalAnswered++;
+                    }
+
+                }
+            );
+
+        }
+    );
+
+
+    const totalPossibleAnswers =
+        formFields.length *
+        selectedResponses.length;
+
+
+    const completionRate =
+        totalPossibleAnswers > 0
+            ? Math.round(
+                (
+                    totalAnswered /
+                    totalPossibleAnswers
+                ) * 100
+            )
+            : 0;
+
+
+    completionElement.textContent =
+        `${completionRate}%`;
+
+
+    // ======================================
+    // UPLOADED FILES
+    // ======================================
+
+    const fileFieldIds =
+        new Set(
+            formFields
+                .filter(
+                    function(field) {
+                        return field.type === "file";
+                    }
+                )
+                .map(
+                    function(field) {
+                        return String(field.id);
+                    }
+                )
+        );
+
+
+    let uploadedFileCount = 0;
+
+
+    selectedResponses.forEach(
+        function(responseItem) {
+
+            const answers =
+                Array.isArray(
+                    responseItem.answers
+                )
+                    ? responseItem.answers
+                    : [];
+
+
+            answers.forEach(
+                function(answer) {
+
+                    if (
+                        fileFieldIds.has(
+                            String(answer.fieldId)
+                        ) &&
+                        answer.value
+                    ) {
+
+                        uploadedFileCount++;
+
+                    }
+
+                }
+            );
+
+        }
+    );
+
+
+    uploadedFilesElement.textContent =
+        uploadedFileCount;
+
+
+    // ======================================
+    // LAST RESPONSE
+    // ======================================
+
+    const latestResponse =
+        [...validResponses]
+            .sort(
+                function(a, b) {
+
+                    return (
+                        new Date(b.createdAt) -
+                        new Date(a.createdAt)
+                    );
+
+                }
+            )[0];
+
+
+    if (latestResponse) {
+
+        const latestDate =
+            new Date(
+                latestResponse.createdAt
+            );
+
+
+        lastResponseElement.textContent =
+            latestDate.toLocaleString(
+                "en-GB",
+                {
+                    day: "2-digit",
+                    month: "short",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    hour12: true
+                }
+            );
+
+    }
+    else {
+
+        lastResponseElement.textContent =
+            "No responses";
+
+    }
+
+
+    // ======================================
+    // REAL ACTIVITY HEATMAP
+    // ======================================
+
+    const heatmapDays = [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu",
+        "Fri",
+        "Sat",
+        "Sun"
+    ];
+
+
+    const heatmapData =
+        Array.from(
+            { length: 7 },
+            function() {
+                return new Array(24).fill(0);
+            }
+        );
+
+
+    validResponses.forEach(
+        function(responseItem) {
+
+            const date =
+                new Date(
+                    responseItem.createdAt
+                );
+
+
+            const javascriptDay =
+                date.getDay();
+
+
+            const dayIndex =
+                javascriptDay === 0
+                    ? 6
+                    : javascriptDay - 1;
+
+
+            const hour =
+                date.getHours();
+
+
+            heatmapData[
+                dayIndex
+            ][hour]++;
+
+        }
+    );
+
+
+    const maxActivity =
+        Math.max(
+            0,
+            ...heatmapData.flat()
+        );
+
+
+    let heatmapHtml = `
+
+        <div class="heatmap-grid">
+
+            <div class="heatmap-corner"></div>
+
+            ${Array.from(
+                { length: 24 },
+                function(_, hour) {
+
+                    const showLabel =
+                        hour === 0 ||
+                        hour === 4 ||
+                        hour === 8 ||
+                        hour === 12 ||
+                        hour === 16 ||
+                        hour === 20;
+
+
+                    return `
+                        <div class="heatmap-hour-label">
+                            ${
+                                showLabel
+                                    ? hour === 0
+                                        ? "12 AM"
+                                        : hour < 12
+                                            ? `${hour} AM`
+                                            : hour === 12
+                                                ? "12 PM"
+                                                : `${hour - 12} PM`
+                                    : ""
+                            }
+                        </div>
+                    `;
+
+                }
+            ).join("")}
+    `;
+
+
+    heatmapDays.forEach(
+        function(day, dayIndex) {
+
+            heatmapHtml += `
+                <div class="heatmap-day-label">
+                    ${day}
+                </div>
+            `;
+
+
+            heatmapData[
+                dayIndex
+            ].forEach(
+                function(count) {
+
+                    let level = 0;
+
+
+                    if (
+                        count > 0 &&
+                        maxActivity > 0
+                    ) {
+
+                        const ratio =
+                            count /
+                            maxActivity;
+
+
+                        if (ratio <= 0.25) {
+                            level = 1;
+                        }
+                        else if (
+                            ratio <= 0.5
+                        ) {
+                            level = 2;
+                        }
+                        else if (
+                            ratio <= 0.75
+                        ) {
+                            level = 3;
+                        }
+                        else {
+                            level = 4;
+                        }
+
+                    }
+
+
+                    heatmapHtml += `
+                        <div
+                            class="heatmap-cell heatmap-level-${level}"
+                            title="${count} response${count === 1 ? "" : "s"}"
+                        ></div>
+                    `;
+
+                }
+            );
+
+        }
+    );
+
+
+    heatmapHtml += `
+        </div>
+    `;
+
+
+    heatmapElement.innerHTML =
+        heatmapHtml;
 
 }
 
@@ -3355,6 +4012,12 @@ function renderFileUploadStats(
             safeTotal
         ) * 100;
 
+    const otherPercent =
+    (
+        otherFiles /
+        safeTotal
+    ) * 100;
+
 
     const imageEnd =
         imagePercent;
@@ -3374,16 +4037,94 @@ function renderFileUploadStats(
         spreadsheetEnd +
         textPercent;
 
-        const donutBackground =
-    totalFiles === 0
-        ? "rgba(71, 85, 105, 0.25)"
-        : `conic-gradient(
-            #8b5cf6 0% ${imageEnd}%,
-            #3b82f6 ${imageEnd}% ${documentEnd}%,
-            #06b6d4 ${documentEnd}% ${spreadsheetEnd}%,
-            #f59e0b ${spreadsheetEnd}% ${textEnd}%,
-            #64748b ${textEnd}% 100%
-        )`;
+        const donutRadius = 68;
+const donutCircumference =
+    2 * Math.PI * donutRadius;
+
+const donutCategories = [
+    {
+        key: "images",
+        label: "Images",
+        count: imageFiles,
+        percent: imagePercent,
+        color: "#8b5cf6"
+    },
+    {
+        key: "documents",
+        label: "Documents",
+        count: documentFiles,
+        percent: documentPercent,
+        color: "#3b82f6"
+    },
+    {
+        key: "spreadsheets",
+        label: "Spreadsheets",
+        count: spreadsheetFiles,
+        percent: spreadsheetPercent,
+        color: "#06b6d4"
+    },
+    {
+        key: "text",
+        label: "Text Files",
+        count: textFiles,
+        percent: textPercent,
+        color: "#f59e0b"
+    },
+    {
+        key: "others",
+        label: "Others",
+        count: otherFiles,
+        percent: otherPercent,
+        color: "#64748b"
+    }
+];
+
+let donutOffset = 0;
+
+const donutSegments =
+    donutCategories
+        .map(function(category) {
+
+            if (
+                category.count <= 0 ||
+                category.percent <= 0
+            ) {
+                return "";
+            }
+
+            const segmentLength =
+                donutCircumference *
+                category.percent /
+                100;
+
+            const segment = `
+                <circle
+                    class="file-donut-segment"
+                    data-donut-category="${category.key}"
+                    data-label="${category.label}"
+                    data-count="${category.count}"
+                    data-percent="${category.percent.toFixed(1)}"
+                    cx="90"
+                    cy="90"
+                    r="${donutRadius}"
+                    fill="none"
+                    stroke="${category.color}"
+                    stroke-width="22"
+                    stroke-dasharray="
+                        ${segmentLength}
+                        ${donutCircumference - segmentLength}
+                    "
+                    stroke-dashoffset="${-donutOffset}"
+                    pathLength="${donutCircumference}"
+                ></circle>
+            `;
+
+            donutOffset += segmentLength;
+
+            return segment;
+
+        })
+        .join("");
 
 
     responseFileStats.innerHTML = `
@@ -3393,119 +4134,830 @@ function renderFileUploadStats(
             <div class="file-upload-chart-side">
 
                 <div
-                    class="file-upload-donut"
-                    style="
-                        background:${donutBackground};
-                    "
-                >
+    class="file-upload-donut"
+    data-total="${totalFiles}"
+>
+    <svg
+        class="file-donut-svg"
+        viewBox="0 0 180 180"
+        aria-label="File upload distribution"
+    >
+        <circle
+            class="file-donut-track"
+            cx="90"
+            cy="90"
+            r="${donutRadius}"
+            fill="none"
+            stroke-width="22"
+        ></circle>
 
-                    <div class="file-upload-donut-inner">
+        <g class="file-donut-segments">
+            ${donutSegments}
+        </g>
+    </svg>
 
-                        <strong>
-                            ${totalFiles}
-                        </strong>
+    <div
+        class="file-upload-donut-inner"
+        id="fileUploadDonutCenter"
+    >
+        <strong>
+            ${totalFiles}
+        </strong>
 
-                        <span>
-                            Total Files
-                        </span>
+        <span>
+            TOTAL FILES
+        </span>
+    </div>
+</div>
 
-                    </div>
+<div
+    class="file-donut-hover-detail"
+    id="fileDonutHoverDetail"
+    hidden
+>
+    <span
+        class="file-donut-detail-dot"
+        id="fileDonutDetailDot"
+    ></span>
 
-                </div>
+    <div>
+        <strong id="fileDonutDetailTitle"></strong>
 
-            </div>
-
-
-            <div class="file-upload-legend">
-
-                <div class="file-upload-legend-item">
-
-                    <span class="file-legend-dot file-dot-images"></span>
-
-                    <div>
-                        <p>
-                            Images
-                        </p>
-
-                        <strong>
-                            ${imageFiles}
-                        </strong>
-                    </div>
-
-                </div>
-
-
-                <div class="file-upload-legend-item">
-
-                    <span class="file-legend-dot file-dot-documents"></span>
-
-                    <div>
-                        <p>
-                            Documents
-                        </p>
-
-                        <strong>
-                            ${documentFiles}
-                        </strong>
-                    </div>
-
-                </div>
-
-
-                <div class="file-upload-legend-item">
-
-                    <span class="file-legend-dot file-dot-sheets"></span>
-
-                    <div>
-                        <p>
-                            Spreadsheets
-                        </p>
-
-                        <strong>
-                            ${spreadsheetFiles}
-                        </strong>
-                    </div>
-
-                </div>
-
-
-                <div class="file-upload-legend-item">
-
-                    <span class="file-legend-dot file-dot-text"></span>
-
-                    <div>
-                        <p>
-                            Text Files
-                        </p>
-
-                        <strong>
-                            ${textFiles}
-                        </strong>
-                    </div>
-
-                </div>
-
-
-                <div class="file-upload-legend-item">
-
-                    <span class="file-legend-dot file-dot-other"></span>
-
-                    <div>
-                        <p>
-                            Others
-                        </p>
-
-                        <strong>
-                            ${otherFiles}
-                        </strong>
-                    </div>
+        <span>
+            <b id="fileDonutDetailCount">0</b>
+            files
+            •
+            <b id="fileDonutDetailPercent">0%</b>
+        </span>
+    </div>
+</div>
 
                 </div>
 
             </div>
 
+
+          <div
+    class="file-upload-legend-item file-stat-images"
+    data-file-category="images"
+    role="button"
+    tabindex="0"
+>
+
+    <div class="file-stat-icon">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="3" y="4" width="18" height="16" rx="2"></rect>
+            <circle cx="8.5" cy="9" r="1.5"></circle>
+            <path d="M4 17l5-5 4 4 2-2 5 4"></path>
+        </svg>
+    </div>
+
+    <div class="file-stat-main">
+        <div class="file-stat-info">
+            <span>Images</span>
+
+            <div class="file-stat-numbers">
+                <strong>${imageFiles}</strong>
+                <small>${imagePercent.toFixed(1)}%</small>
+            </div>
         </div>
+
+        <div class="file-stat-track">
+            <span style="width:${imagePercent}%"></span>
+        </div>
+    </div>
+
+</div>
+
+
+<div
+    class="file-upload-legend-item file-stat-documents"
+    data-file-category="documents"
+    role="button"
+    tabindex="0"
+>
+
+    <div class="file-stat-icon">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M6 3h8l4 4v14H6z"></path>
+            <path d="M14 3v5h4"></path>
+            <path d="M9 12h6"></path>
+            <path d="M9 15h6"></path>
+            <path d="M9 18h4"></path>
+        </svg>
+    </div>
+
+    <div class="file-stat-main">
+        <div class="file-stat-info">
+            <span>Documents</span>
+
+            <div class="file-stat-numbers">
+                <strong>${documentFiles}</strong>
+                <small>${documentPercent.toFixed(1)}%</small>
+            </div>
+        </div>
+
+        <div class="file-stat-track">
+            <span style="width:${documentPercent}%"></span>
+        </div>
+    </div>
+
+</div>
+
+
+<div
+    class="file-upload-legend-item file-stat-sheets"
+    data-file-category="spreadsheets"
+    role="button"
+    tabindex="0"
+>
+
+    <div class="file-stat-icon">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="4" y="4" width="16" height="16" rx="2"></rect>
+            <path d="M4 10h16"></path>
+            <path d="M4 15h16"></path>
+            <path d="M10 4v16"></path>
+        </svg>
+    </div>
+
+    <div class="file-stat-main">
+        <div class="file-stat-info">
+            <span>Spreadsheets</span>
+
+            <div class="file-stat-numbers">
+                <strong>${spreadsheetFiles}</strong>
+                <small>${spreadsheetPercent.toFixed(1)}%</small>
+            </div>
+        </div>
+
+        <div class="file-stat-track">
+            <span style="width:${spreadsheetPercent}%"></span>
+        </div>
+    </div>
+
+</div>
+
+
+<div
+    class="file-upload-legend-item file-stat-text"
+    data-file-category="text"
+    role="button"
+    tabindex="0"
+>
+
+    <div class="file-stat-icon">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M6 3h8l4 4v14H6z"></path>
+            <path d="M14 3v5h4"></path>
+            <path d="M9 12h6"></path>
+            <path d="M9 15h6"></path>
+        </svg>
+    </div>
+
+    <div class="file-stat-main">
+        <div class="file-stat-info">
+            <span>Text Files</span>
+
+            <div class="file-stat-numbers">
+                <strong>${textFiles}</strong>
+                <small>${textPercent.toFixed(1)}%</small>
+            </div>
+        </div>
+
+        <div class="file-stat-track">
+            <span style="width:${textPercent}%"></span>
+        </div>
+    </div>
+
+</div>
+
+
+<div
+    class="file-upload-legend-item file-stat-other"
+    data-file-category="others"
+    role="button"
+    tabindex="0"
+>
+
+    <div class="file-stat-icon">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="5" cy="12" r="1.5"></circle>
+            <circle cx="12" cy="12" r="1.5"></circle>
+            <circle cx="19" cy="12" r="1.5"></circle>
+        </svg>
+    </div>
+
+    <div class="file-stat-main">
+        <div class="file-stat-info">
+            <span>Others</span>
+
+            <div class="file-stat-numbers">
+                <strong>${otherFiles}</strong>
+                <small>${(
+                    (otherFiles / safeTotal) * 100
+                ).toFixed(1)}%</small>
+            </div>
+        </div>
+
+        <div class="file-stat-track">
+            <span
+                style="width:${
+                    (otherFiles / safeTotal) * 100
+                }%"
+            ></span>
+        </div>
+    </div>
+
+</div>
+
+</div>
+
+       
     `;
+
+}
+
+// ==========================================
+// FILE CATEGORY RESPONSE MODAL
+// ==========================================
+
+function getFileCategoryInfo(value) {
+
+    let fileName = "";
+    let fileUrl = "";
+
+    if (
+        value &&
+        typeof value === "object"
+    ) {
+
+        fileName =
+            value.originalName ||
+            value.storedName ||
+            value.url ||
+            "Uploaded File";
+
+        fileUrl =
+            value.url || "";
+
+    }
+    else if (
+        typeof value === "string"
+    ) {
+
+        fileName = value;
+        fileUrl = value;
+
+    }
+
+
+    const cleanFileName =
+        String(fileName)
+            .split("?")[0]
+            .toLowerCase();
+
+
+    const extension =
+        cleanFileName.includes(".")
+            ? cleanFileName.split(".").pop()
+            : "";
+
+
+    let category = "others";
+
+
+    if (
+        [
+            "jpg",
+            "jpeg",
+            "png",
+            "gif",
+            "webp"
+        ].includes(extension)
+    ) {
+
+        category = "images";
+
+    }
+    else if (
+        [
+            "pdf",
+            "doc",
+            "docx"
+        ].includes(extension)
+    ) {
+
+        category = "documents";
+
+    }
+    else if (
+        [
+            "xls",
+            "xlsx",
+            "csv"
+        ].includes(extension)
+    ) {
+
+        category = "spreadsheets";
+
+    }
+    else if (
+        extension === "txt"
+    ) {
+
+        category = "text";
+
+    }
+
+
+    return {
+        category,
+        fileName,
+        fileUrl,
+        extension
+    };
+}
+
+
+function openFileResponsesModal(category) {
+
+    if (
+        !fileResponsesModal ||
+        !fileResponsesModalContent
+    ) {
+        return;
+    }
+
+
+    const categoryTitles = {
+        images: "Image Uploads",
+        documents: "Document Uploads",
+        spreadsheets: "Spreadsheet Uploads",
+        text: "Text File Uploads",
+        others: "Other Uploads"
+    };
+
+
+    const formFields =
+        Array.isArray(
+            currentSelectedForm?.fields
+        )
+            ? currentSelectedForm.fields
+            : [];
+
+
+    const matchingFiles = [];
+
+
+    currentFilteredResponses.forEach(
+        function(responseItem) {
+
+            const answers =
+                Array.isArray(
+                    responseItem.answers
+                )
+                    ? responseItem.answers
+                    : [];
+
+
+            answers.forEach(
+                function(answer) {
+
+                    const field =
+                        formFields.find(
+                            function(formField) {
+
+                                return (
+                                    String(formField.id) ===
+                                    String(answer.fieldId)
+                                );
+
+                            }
+                        );
+
+
+                    if (
+                        field?.type !== "file" ||
+                        !answer.value
+                    ) {
+                        return;
+                    }
+
+
+                    const fileInfo =
+                        getFileCategoryInfo(
+                            answer.value
+                        );
+
+
+                    if (
+                        fileInfo.category !==
+                        category
+                    ) {
+                        return;
+                    }
+
+
+                    matchingFiles.push({
+                        responseItem,
+                        field,
+                        ...fileInfo
+                    });
+
+                }
+            );
+
+        }
+    );
+
+
+    fileResponsesModalTitle.textContent =
+        categoryTitles[category] ||
+        "Uploaded Files";
+
+
+    fileResponsesModalSubtitle.textContent =
+        `${matchingFiles.length} uploaded file${
+            matchingFiles.length === 1
+                ? ""
+                : "s"
+        } found`;
+
+
+    if (!matchingFiles.length) {
+
+        fileResponsesModalContent.innerHTML = `
+            <div class="file-modal-empty">
+                <strong>
+                    No files found
+                </strong>
+
+                <p>
+                    No ${escapeResponsesHtml(
+                        categoryTitles[category] ||
+                        "matching"
+                    )} are available in the current responses.
+                </p>
+            </div>
+        `;
+
+    }
+    else {
+
+        fileResponsesModalContent.innerHTML =
+            matchingFiles
+                .map(
+                    function(item, index) {
+
+                        const submittedAt =
+                            item.responseItem.createdAt
+                                ? new Date(
+                                    item.responseItem.createdAt
+                                ).toLocaleString(
+                                    "en-GB",
+                                    {
+                                        day: "2-digit",
+                                        month: "short",
+                                        year: "numeric",
+                                        hour: "2-digit",
+                                        minute: "2-digit",
+                                        hour12: true
+                                    }
+                                )
+                                : "Date unavailable";
+
+
+                        const safeUrl =
+                            typeof item.fileUrl === "string" &&
+                            (
+                                item.fileUrl.startsWith(
+                                    "https://"
+                                ) ||
+                                item.fileUrl.startsWith(
+                                    "http://"
+                                )
+                            )
+                                ? item.fileUrl
+                                : "";
+
+
+                        return `
+                            <article class="file-response-modal-item">
+
+                                <div class="file-response-modal-number">
+                                    ${index + 1}
+                                </div>
+
+                                <div class="file-response-modal-details">
+
+                                    <strong>
+                                        ${escapeResponsesHtml(
+                                            item.fileName
+                                        )}
+                                    </strong>
+
+                                    <span>
+                                        ${escapeResponsesHtml(
+                                            item.field?.label ||
+                                            "File Upload"
+                                        )}
+                                    </span>
+
+                                    <small>
+                                        Submitted:
+                                        ${escapeResponsesHtml(
+                                            submittedAt
+                                        )}
+                                    </small>
+
+                                </div>
+
+                                ${
+                                    safeUrl
+                                        ? `
+                                            <a
+                                                href="${escapeResponsesHtml(
+                                                    safeUrl
+                                                )}"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                class="file-response-view-btn"
+                                            >
+                                                View File
+                                            </a>
+                                        `
+                                        : `
+                                            <span class="file-response-no-link">
+                                                File unavailable
+                                            </span>
+                                        `
+                                }
+
+                            </article>
+                        `;
+
+                    }
+                )
+                .join("");
+
+    }
+
+
+    fileResponsesModal.hidden = false;
+
+    document.body.classList.add(
+        "file-modal-open"
+    );
+
+}
+
+if (responseFileStats) {
+
+    responseFileStats.addEventListener(
+        "click",
+        function(event) {
+
+            const categoryItem =
+                event.target.closest(
+                    "[data-file-category]"
+                );
+
+            if (!categoryItem) {
+                return;
+            }
+
+            openFileResponsesModal(
+                categoryItem.dataset.fileCategory
+            );
+
+        }
+    );
+
+
+    responseFileStats.addEventListener(
+        "keydown",
+        function(event) {
+
+            if (
+                event.key !== "Enter" &&
+                event.key !== " "
+            ) {
+                return;
+            }
+
+            const categoryItem =
+                event.target.closest(
+                    "[data-file-category]"
+                );
+
+            if (!categoryItem) {
+                return;
+            }
+
+            event.preventDefault();
+
+            openFileResponsesModal(
+                categoryItem.dataset.fileCategory
+            );
+
+        }
+    );
+
+}
+
+
+function closeFileResponsesModal() {
+
+    if (!fileResponsesModal) {
+        return;
+    }
+
+    fileResponsesModal.hidden = true;
+
+    document.body.classList.remove(
+        "file-modal-open"
+    );
+
+}
+
+
+if (fileResponsesModalClose) {
+
+    fileResponsesModalClose.addEventListener(
+        "click",
+        closeFileResponsesModal
+    );
+
+}
+
+
+if (fileResponsesModal) {
+
+    fileResponsesModal.addEventListener(
+        "click",
+        function(event) {
+
+            if (
+                event.target.classList.contains(
+                    "file-responses-modal-overlay"
+                )
+            ) {
+
+                closeFileResponsesModal();
+
+            }
+
+        }
+    );
+
+}
+
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (
+            event.key === "Escape" &&
+            fileResponsesModal &&
+            !fileResponsesModal.hidden
+        ) {
+
+            closeFileResponsesModal();
+
+        }
+
+    }
+);
+
+// ==========================================
+// INTERACTIVE FILE DONUT
+// ==========================================
+
+function setupInteractiveFileDonut() {
+
+    const donut =
+        document.querySelector(
+            ".file-upload-donut"
+        );
+
+    const detail =
+        document.getElementById(
+            "fileDonutHoverDetail"
+        );
+
+    if (!donut || !detail) {
+        return;
+    }
+
+
+    const detailDot =
+        document.getElementById(
+            "fileDonutDetailDot"
+        );
+
+    const detailTitle =
+        document.getElementById(
+            "fileDonutDetailTitle"
+        );
+
+    const detailCount =
+        document.getElementById(
+            "fileDonutDetailCount"
+        );
+
+    const detailPercent =
+        document.getElementById(
+            "fileDonutDetailPercent"
+        );
+
+
+    const segments =
+        donut.querySelectorAll(
+            ".file-donut-segment"
+        );
+
+
+    function resetSegments() {
+
+        segments.forEach(
+            function(segment) {
+
+                segment.classList.remove(
+                    "active"
+                );
+
+                segment.classList.remove(
+                    "inactive"
+                );
+
+            }
+        );
+
+        detail.hidden = true;
+
+    }
+
+
+    segments.forEach(
+        function(segment) {
+
+            segment.addEventListener(
+                "mouseenter",
+                function() {
+
+                    segments.forEach(
+                        function(item) {
+
+                            item.classList.toggle(
+                                "active",
+                                item === segment
+                            );
+
+                            item.classList.toggle(
+                                "inactive",
+                                item !== segment
+                            );
+
+                        }
+                    );
+
+
+                    const color =
+                        segment.getAttribute(
+                            "stroke"
+                        ) || "#8b5cf6";
+
+
+                    detailTitle.textContent =
+                        segment.dataset.label;
+
+                    detailCount.textContent =
+                        segment.dataset.count;
+
+                    detailPercent.textContent =
+                        `${segment.dataset.percent}%`;
+
+                    detailDot.style.background =
+                        color;
+
+                    detailDot.style.boxShadow =
+                        `0 0 14px ${color}`;
+
+                    detail.hidden = false;
+
+                }
+            );
+
+        }
+    );
+
+
+    donut.addEventListener(
+        "mouseleave",
+        resetSegments
+    );
 
 }
 
@@ -4211,46 +5663,47 @@ if (responsesTableSearchInput) {
 
 }
 
-if (responsesFilterMenuBtn) {
+if (
+    responsesFilterMenuBtn &&
+    responsesFilterDropdown
+) {
 
     responsesFilterMenuBtn.addEventListener(
         "click",
-        function() {
+        function(event) {
 
-            const filterGroup =
-                document.querySelector(
-                    ".responses-filter-group"
-                );
+            event.stopPropagation();
 
-            if (!filterGroup) {
-                return;
-            }
+            const isOpen =
+                !responsesFilterDropdown.hidden;
 
+            responsesFilterDropdown.hidden =
+                isOpen;
 
-            filterGroup.scrollIntoView({
-                behavior: "smooth",
-                block: "center"
-            });
-
-
-            filterGroup.classList.add(
-                "responses-filter-highlight"
-            );
-
-
-            setTimeout(
-                function() {
-
-                    filterGroup.classList.remove(
-                        "responses-filter-highlight"
-                    );
-
-                },
-                1200
+            responsesFilterMenuBtn.setAttribute(
+                "aria-expanded",
+                String(!isOpen)
             );
 
         }
     );
+
+    document.addEventListener(
+        "click",
+        function() {
+
+            responsesFilterDropdown.hidden =
+                true;
+
+            responsesFilterMenuBtn.setAttribute(
+                "aria-expanded",
+                "false"
+            );
+
+        }
+    );
+
+
 
 }
 

@@ -28,9 +28,23 @@
 
         <div class="responses-sidebar-brand">
 
-            <div class="responses-brand-logo">
-                ◆
-            </div>
+           <div class="responses-brand-logo">
+
+    <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.8"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+    >
+        <path d="M12 3 20 7.5 12 12 4 7.5 12 3Z"></path>
+        <path d="M4 12 12 16.5 20 12"></path>
+        <path d="M4 16.5 12 21 20 16.5"></path>
+    </svg>
+
+</div>
 
             <div>
                 <strong>
@@ -528,10 +542,234 @@
             class="recent-responses-activity"
         ></div>
 
+        
+
     </section>
 
 
-    <section class="responses-insight-card">
+   
+        
+        <!-- ==========================================
+     SUBMISSION INSIGHTS
+=========================================== -->
+
+<section class="submission-insights-card">
+
+    <div class="submission-insights-header">
+
+        <div class="submission-insights-title">
+
+            <div class="submission-insights-title-icon">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+            <div>
+                <h2>SUBMISSION INSIGHTS</h2>
+                <p>Understand when and how users respond</p>
+            </div>
+
+        </div>
+
+        <div class="submission-insights-period">
+            📅 <span id="submissionInsightsPeriod">All Time</span>
+        </div>
+
+    </div>
+
+
+    <div class="submission-insights-layout">
+
+        <div class="submission-insights-left">
+
+            <div class="submission-insights-metrics">
+
+                <article class="submission-insight-metric peak-time">
+
+                   <div class="submission-metric-icon">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="12" cy="12" r="8"></circle>
+        <path d="M12 7v5l3 2"></path>
+    </svg>
+</div>
+
+                    <div>
+                        <span>Peak Submission Time</span>
+
+                        <strong id="submissionPeakTime">
+                            —
+                        </strong>
+
+                        <small>
+                            Most responses received
+                        </small>
+                    </div>
+
+                </article>
+
+
+                <article class="submission-insight-metric busiest-day">
+
+                   <div class="submission-metric-icon">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+        <rect x="4" y="5" width="16" height="15" rx="2"></rect>
+        <path d="M8 3v4M16 3v4M4 9h16"></path>
+        <path d="M8 13h2M12 13h2M16 13h1M8 17h2M12 17h2"></path>
+    </svg>
+</div>
+
+                    <div>
+                        <span>Busiest Day</span>
+
+                        <strong id="submissionBusiestDay">
+                            —
+                        </strong>
+
+                        <small>
+                            Highest response count
+                        </small>
+                    </div>
+
+                </article>
+
+
+                <article class="submission-insight-metric average-completion">
+
+                   <div class="submission-metric-icon">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="12" cy="12" r="8"></circle>
+        <path d="M8.5 12.2l2.2 2.2 4.8-5"></path>
+    </svg>
+</div>
+
+                    <div>
+                        <span>Average Completion</span>
+
+                        <strong id="submissionAverageCompletion">
+                            0%
+                        </strong>
+
+                        <small>
+                            Questions answered
+                        </small>
+                    </div>
+
+                </article>
+
+            </div>
+
+
+            <div class="submission-insights-summary">
+
+                <div class="submission-summary-item">
+
+                   <div class="submission-summary-icon">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M7 4h10a2 2 0 0 1 2 2v14H5V6a2 2 0 0 1 2-2z"></path>
+        <path d="M8 9h8M8 13h8M8 17h5"></path>
+    </svg>
+</div>
+
+                    <div>
+                        <strong id="submissionTotalResponses">
+                            0
+                        </strong>
+
+                        <span>
+                            Total responses
+                        </span>
+                    </div>
+
+                </div>
+
+
+                <div class="submission-summary-item">
+
+                    <div class="submission-summary-icon">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M7 3h7l4 4v14H7z"></path>
+        <path d="M14 3v5h4"></path>
+        <path d="M12 17V11"></path>
+        <path d="M9.5 13.5L12 11l2.5 2.5"></path>
+    </svg>
+</div>
+
+                    <div>
+                        <strong id="submissionUploadedFiles">
+                            0
+                        </strong>
+
+                        <span>
+                            Uploaded files
+                        </span>
+                    </div>
+
+                </div>
+
+
+                <div class="submission-summary-item">
+
+                    <div class="submission-summary-icon">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="12" cy="12" r="8"></circle>
+        <path d="M12 8v4l3 2"></path>
+    </svg>
+</div>
+
+                    <div>
+                        <strong id="submissionLastResponse">
+                            —
+                        </strong>
+
+                        <span>
+                            Last response
+                        </span>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="submission-heatmap-card">
+
+            <div class="submission-heatmap-header">
+
+                <strong>
+                    Response Activity Heatmap
+                </strong>
+
+                <div class="heatmap-intensity">
+
+                    <span>Less</span>
+
+                    <i class="level-0"></i>
+                    <i class="level-1"></i>
+                    <i class="level-2"></i>
+                    <i class="level-3"></i>
+                    <i class="level-4"></i>
+
+                    <span>More</span>
+
+                </div>
+
+            </div>
+
+            <div
+                id="submissionActivityHeatmap"
+                class="submission-activity-heatmap"
+            ></div>
+
+        </div>
+
+    </div>
+
+</section>
+
+         <section class="responses-insight-card">
 
         <div class="responses-insight-header">
 
@@ -563,6 +801,8 @@
     </section>
 
 </div>
+
+
 
 </header>
 
@@ -605,13 +845,48 @@
         </div>
 
 
+       <div class="responses-table-filter-wrap">
+
+    <button
+        type="button"
+        id="responsesFilterMenuBtn"
+        class="responses-table-filter-btn"
+        aria-expanded="false"
+    >
+        ⚙ Filters
+    </button>
+
+    <div
+        id="responsesFilterDropdown"
+        class="responses-filter-dropdown"
+        hidden
+    >
         <button
             type="button"
-            id="responsesFilterMenuBtn"
-            class="responses-table-filter-btn"
+            class="response-filter-btn"
+            data-range="7"
         >
-            ⚙ Filters
+            Last 7 Days
         </button>
+
+        <button
+            type="button"
+            class="response-filter-btn"
+            data-range="30"
+        >
+            Last 30 Days
+        </button>
+
+        <button
+            type="button"
+            class="response-filter-btn active"
+            data-range="all"
+        >
+            All Time
+        </button>
+    </div>
+
+</div>
 
 
         <button
@@ -669,6 +944,53 @@
 
     <script src="js/apiAuth.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+    <!-- ==========================================
+     FILE UPLOAD RESPONSES MODAL
+=========================================== -->
+
+<div
+    id="fileResponsesModal"
+    class="file-responses-modal"
+    hidden
+>
+    <div class="file-responses-modal-overlay"></div>
+
+    <div class="file-responses-modal-box">
+
+        <div class="file-responses-modal-header">
+
+            <div>
+                <span class="file-responses-modal-label">
+                    FILE UPLOADS
+                </span>
+
+                <h2 id="fileResponsesModalTitle">
+                    Uploaded Files
+                </h2>
+
+                <p id="fileResponsesModalSubtitle">
+                    Responses containing this file type
+                </p>
+            </div>
+
+            <button
+                type="button"
+                id="fileResponsesModalClose"
+                class="file-responses-modal-close"
+                aria-label="Close"
+            >
+                ×
+            </button>
+
+        </div>
+
+        <div
+            id="fileResponsesModalContent"
+            class="file-responses-modal-content"
+        ></div>
+
+    </div>
+</div>
     <script src="js/responses.js"></script>
 
 </body>
