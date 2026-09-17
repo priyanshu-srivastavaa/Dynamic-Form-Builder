@@ -2,7 +2,7 @@
 // Save Form To MongoDB
 // ==========================================
 
-const API_URL = "https://dynamic-form-builder-backend-1jjb.onrender.com/api/forms";
+const API_URL = `${FORMIFY_API_BASE_URL}/api/forms`;
 
 saveBtn.addEventListener("click", async function () {
 

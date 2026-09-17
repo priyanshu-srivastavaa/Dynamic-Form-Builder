@@ -1,11 +1,11 @@
 const FORMS_API_URL =
-    "https://dynamic-form-builder-backend-1jjb.onrender.com/api/forms";
+    `${FORMIFY_API_BASE_URL}/api/forms`;
 
 const RESPONSES_API_URL =
-    "https://dynamic-form-builder-backend-1jjb.onrender.com/api/responses";
+    `${FORMIFY_API_BASE_URL}/api/responses`;
 
 const PROFILE_API_URL =
-    "https://dynamic-form-builder-backend-1jjb.onrender.com/api/auth/profile";
+    `${FORMIFY_API_BASE_URL}/api/auth/profile`;
 
 const formsDashboardList =
     document.getElementById(

@@ -1,5 +1,5 @@
 const LOGIN_API_URL =
-    "https://dynamic-form-builder-backend-1jjb.onrender.com/api/auth/login";
+    `${FORMIFY_API_BASE_URL}/api/auth/login`;
 
 
 const loginForm =

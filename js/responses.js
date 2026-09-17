@@ -131,10 +131,10 @@ const responsesPerPage = 5;
 let currentFilteredResponses = [];
 
 const RESPONSES_API_URL =
-    "https://dynamic-form-builder-backend-1jjb.onrender.com/api/responses";
+    `${FORMIFY_API_BASE_URL}/api/responses`;
 
 const FORMS_API_URL =
-    "https://dynamic-form-builder-backend-1jjb.onrender.com/api/forms";
+    `${FORMIFY_API_BASE_URL}/api/forms`;
 
 const responsesList =
     document.getElementById(

@@ -30749,3 +30749,229 @@ strong {
 .question-select-arrow{
     display:none !important;
 }
+
+/* =========================================================
+   RESPONSES DASHBOARD - FINAL COMPACT ANALYTICS OVERRIDE
+   Removes unnecessary empty vertical space
+========================================================= */
+
+/* Top analytics cards */
+.responses-chart-card{
+    padding:22px !important;
+}
+
+/* Smaller header gap */
+.responses-chart-header{
+    margin-bottom:14px !important;
+}
+
+/* Responses Over Time */
+.responses-time-chart{
+    min-height:220px !important;
+    margin-top:0 !important;
+    padding-top:0 !important;
+}
+
+.responses-line-chart-wrap{
+    min-height:200px !important;
+    padding-bottom:20px !important;
+}
+
+.responses-line-chart-svg{
+    height:185px !important;
+}
+
+/* Device Breakdown */
+.device-breakdown-chart{
+    min-height:220px !important;
+}
+
+.device-breakdown-layout{
+    padding:5px 8px !important;
+}
+
+/* Question / Location / Browser row */
+.responses-secondary-analytics-grid{
+    align-items:stretch;
+}
+
+.responses-secondary-analytics-grid
+.responses-chart-card,
+.responses-secondary-analytics-grid
+.responses-analytics-card{
+    min-height:300px !important;
+    height:auto !important;
+}
+
+/* Question analytics empty state */
+.responses-question-card .question-analytics{
+    min-height:170px !important;
+}
+
+/* Location + Browser cards */
+.responses-secondary-analytics-grid
+.responses-analytics-card{
+    padding:22px !important;
+}
+
+/* Empty analytics message */
+.responses-secondary-analytics-grid
+.analytics-empty-state{
+    padding:45px 10px !important;
+}
+
+/* Mobile - don't force desktop heights */
+@media(max-width:900px){
+
+    .responses-secondary-analytics-grid
+    .responses-chart-card,
+    .responses-secondary-analytics-grid
+    .responses-analytics-card{
+        min-height:0 !important;
+    }
+
+    .responses-time-chart,
+    .device-breakdown-chart{
+        min-height:200px !important;
+    }
+}
+
+/* =========================================================
+   RESPONSES DASHBOARD - FINAL SECTION SPACING
+========================================================= */
+
+/* Keep dashboard sections evenly spaced */
+.responses-stats{
+    margin-bottom:22px !important;
+}
+
+.responses-analytics-grid{
+    margin-bottom:22px !important;
+}
+
+.responses-secondary-analytics-grid{
+    margin-top:0 !important;
+    margin-bottom:22px !important;
+}
+
+.responses-insights-grid{
+    margin-top:0 !important;
+    margin-bottom:22px !important;
+}
+
+/* Prevent cards inside a grid from adding random outer gaps */
+.responses-analytics-grid > *,
+.responses-secondary-analytics-grid > *,
+.responses-insights-grid > *{
+    margin-top:0 !important;
+}
+
+/* Keep main content aligned consistently */
+.responses-main{
+    padding-bottom:40px !important;
+}
+
+/* =========================================================
+   RESPONSES DASHBOARD - FINAL HEADER ALIGNMENT
+========================================================= */
+
+.responses-topbar{
+    display:flex !important;
+    align-items:flex-end !important;
+    justify-content:space-between !important;
+    gap:24px !important;
+}
+
+/* Left title/details area */
+.responses-header-info{
+    min-width:0;
+    flex:1;
+}
+
+/* Right actions */
+.responses-header-actions{
+    display:flex !important;
+    align-items:center !important;
+    justify-content:flex-end !important;
+    gap:10px !important;
+    flex-wrap:wrap;
+}
+
+/* Preview + Share stay together */
+.responses-form-actions{
+    display:flex !important;
+    align-items:center !important;
+    gap:10px !important;
+}
+
+/* All action buttons same visual height */
+.responses-preview-btn,
+.responses-share-btn,
+.response-filter-btn,
+.responses-export-btn{
+    min-height:42px !important;
+    display:inline-flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+}
+
+/* Responsive */
+@media(max-width:1150px){
+
+    .responses-topbar{
+        align-items:flex-start !important;
+    }
+
+    .responses-header-actions{
+        justify-content:flex-start !important;
+    }
+}
+/* =========================================================
+   RESPONSES DASHBOARD - FINAL TABLE SPACING POLISH
+========================================================= */
+
+/* Responses section heading */
+.responses-list-header{
+    margin-bottom:14px !important;
+}
+
+/* Search + filters + export toolbar */
+.responses-toolbar{
+    margin-bottom:16px !important;
+    gap:10px !important;
+}
+
+/* Search box same height as buttons */
+.responses-search-box{
+    min-height:42px !important;
+}
+
+/* Keep filters aligned */
+.responses-filter-group{
+    display:flex;
+    align-items:center;
+    gap:8px !important;
+}
+
+/* Table/card should start closer to toolbar */
+.responses-table-wrap,
+.responses-table-container{
+    margin-top:0 !important;
+}
+
+/* Pagination closer to table */
+.responses-pagination{
+    margin-top:16px !important;
+}
+
+/* Mobile safety */
+@media(max-width:700px){
+
+    .responses-toolbar{
+        gap:12px !important;
+    }
+
+    .responses-filter-group{
+        width:100%;
+    }
+}

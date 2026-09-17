@@ -1,5 +1,5 @@
 const FORGOT_PASSWORD_API =
-    "https://dynamic-form-builder-backend-1jjb.onrender.com/api/auth/forgot-password";
+    `${FORMIFY_API_BASE_URL}/api/auth/forgot-password`;
 
 
 const forgotPasswordForm =

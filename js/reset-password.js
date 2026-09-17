@@ -142,7 +142,7 @@ resetPasswordForm.addEventListener(
 
             const response =
                 await fetch(
-                    `https://dynamic-form-builder-backend-1jjb.onrender.com/api/auth/reset-password/${resetToken}`,
+                    `${FORMIFY_API_BASE_URL}/api/auth/reset-password/${resetToken}`,
                     {
                         method:
                             "POST",

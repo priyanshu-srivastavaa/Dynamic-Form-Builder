@@ -19,9 +19,10 @@ async function verifyAuth() {
 
     try {
 
+
         const response =
             await fetch(
-                "https://dynamic-form-builder-backend-1jjb.onrender.com/api/auth/profile",
+                `${FORMIFY_API_BASE_URL}/api/auth/profile`,
                 {
                     headers: {
                         Authorization:
@@ -29,6 +30,8 @@ async function verifyAuth() {
                     }
                 }
             );
+
+           
 
 
         if (!response.ok) {
@@ -70,6 +73,7 @@ async function verifyAuth() {
         );
 
     }
+
 
 }
 

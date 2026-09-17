@@ -1,9 +1,9 @@
 const RESPONSE_API_URL =
-    "https://dynamic-form-builder-backend-1jjb.onrender.com/api/responses";
+    `${FORMIFY_API_BASE_URL}/api/responses`;
 
 
 const FILE_UPLOAD_API_URL =
-    "https://dynamic-form-builder-backend-1jjb.onrender.com/api/uploads";
+    `${FORMIFY_API_BASE_URL}/api/uploads`;
 
 
 const MAX_FILE_SIZE =

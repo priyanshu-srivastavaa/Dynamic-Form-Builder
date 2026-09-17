@@ -1,5 +1,5 @@
 const REGISTER_API_URL =
-    "https://dynamic-form-builder-backend-1jjb.onrender.com/api/auth/register";
+    `${FORMIFY_API_BASE_URL}/api/auth/register`;
 
 
 const registerForm =
