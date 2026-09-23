@@ -1,0 +1,1302 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Analytics | Formify
+    </title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- API config must load before auth guard -->
+    <script src="js/config.js"></script>
+    <script src="js/authGuard.js"></script>
+
+</head>
+
+<body>
+
+    <div class="dashboard-shell">
+
+        <!-- =========================
+             SIDEBAR
+        ========================== -->
+
+        <aside class="dashboard-sidebar">
+
+            <div class="dashboard-brand">
+
+                <div class="dashboard-brand-icon">
+
+                    <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                    >
+                        <path d="M12 3 19 7 12 11 5 7 12 3Z"></path>
+                        <path d="M5 11 12 15 19 11"></path>
+                        <path d="M5 15 12 19 19 15"></path>
+                    </svg>
+
+                </div>
+
+                <div>
+
+                    <h2>
+                        Formify
+                    </h2>
+
+                    <p>
+                        Create. Share. Collect.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <nav class="dashboard-nav">
+
+                <a
+                    href="dashboard.html"
+                    class="dashboard-nav-link"
+                >
+                    <span class="dashboard-nav-icon">
+
+                        <svg
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        >
+                            <path d="M3 11.5 12 4l9 7.5"></path>
+                            <path d="M5 10v10h14V10"></path>
+                            <path d="M9 20v-6h6v6"></path>
+                        </svg>
+
+                    </span>
+
+                    Dashboard
+
+                </a>
+
+
+                <a
+                    href="dashboard.html"
+                    class="dashboard-nav-link"
+                >
+                    <span class="dashboard-nav-icon">
+
+                        <svg
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        >
+                            <rect x="5" y="3" width="14" height="18" rx="2"></rect>
+                            <path d="M8 7h8"></path>
+                            <path d="M8 11h8"></path>
+                            <path d="M8 15h5"></path>
+                        </svg>
+
+                    </span>
+
+                    My Forms
+
+                </a>
+
+
+                <a
+                    href="responses.html"
+                    class="dashboard-nav-link"
+                >
+                    <span class="dashboard-nav-icon">
+
+                        <svg
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        >
+                            <path d="M5 20V10"></path>
+                            <path d="M10 20V4"></path>
+                            <path d="M15 20v-7"></path>
+                            <path d="M20 20V7"></path>
+                        </svg>
+
+                    </span>
+
+                    Responses
+
+                </a>
+
+
+                <!-- ANALYTICS -->
+
+                <a
+                    href="analytics.html"
+                    class="dashboard-nav-link active"
+                >
+                    <span class="dashboard-nav-icon">
+
+                        <svg
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        >
+                            <path d="M4 19V5"></path>
+                            <path d="M4 19h16"></path>
+                            <path d="m7 15 4-4 3 2 5-6"></path>
+                        </svg>
+
+                    </span>
+
+                    Analytics
+
+                </a>
+
+
+                <a
+                    href="#"
+                    class="dashboard-nav-link"
+                >
+                    <span class="dashboard-nav-icon">
+
+                        <svg
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        >
+                            <rect x="3" y="4" width="18" height="16" rx="2"></rect>
+                            <path d="M8 4v16"></path>
+                            <path d="M8 9h13"></path>
+                        </svg>
+
+                    </span>
+
+                    Templates
+
+                </a>
+
+
+                <a
+                    href="#"
+                    class="dashboard-nav-link"
+                >
+                    <span class="dashboard-nav-icon">
+
+                        <svg
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        >
+                            <circle cx="12" cy="12" r="3"></circle>
+
+                            <path
+                                d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06-2.12 2.12-.06-.06a1.7 1.7 0 0 0-1.88-.34 1.7 1.7 0 0 0-1.03 1.56V20h-3v-.08a1.7 1.7 0 0 0-1.03-1.56 1.7 1.7 0 0 0-1.88.34l-.06.06-2.12-2.12.06-.06A1.7 1.7 0 0 0 7 15.4a1.7 1.7 0 0 0-1.56-1.03H5v-3h.44A1.7 1.7 0 0 0 7 10.34a1.7 1.7 0 0 0-.34-1.88l-.06-.06 2.12-2.12.06.06a1.7 1.7 0 0 0 1.88.34A1.7 1.7 0 0 0 11.7 5.1V5h3v.1a1.7 1.7 0 0 0 1.03 1.56 1.7 1.7 0 0 0 1.88-.34l.06-.06 2.12 2.12-.06.06a1.7 1.7 0 0 0-.34 1.88 1.7 1.7 0 0 0 1.56 1.03H21v3h-.44A1.7 1.7 0 0 0 19.4 15z"
+                            ></path>
+
+                        </svg>
+
+                    </span>
+
+                    Settings
+
+                </a>
+
+            </nav>
+
+
+            <div class="dashboard-upgrade-card">
+
+                <div class="dashboard-upgrade-icon">
+                    ♛
+                </div>
+
+                <h3>
+                    Upgrade to Pro
+                </h3>
+
+                <p>
+                    Unlock advanced features and deeper insights.
+                </p>
+
+                <button type="button">
+                    Upgrade Now →
+                </button>
+
+            </div>
+
+        </aside>
+
+
+        <!-- =========================
+             MAIN CONTENT
+        ========================== -->
+
+        <div class="dashboard-content">
+
+            <header class="dashboard-topbar">
+
+                <div class="dashboard-top-search">
+
+                    <span class="dashboard-search-icon">
+
+                        <svg
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        >
+                            <circle cx="11" cy="11" r="7"></circle>
+                            <path d="m20 20-3.5-3.5"></path>
+                        </svg>
+
+                    </span>
+
+                    <input
+                        type="text"
+                        id="analyticsSearch"
+                        placeholder="Search analytics..."
+                    >
+
+                    <span class="dashboard-search-shortcut">
+                        Ctrl K
+                    </span>
+
+                </div>
+
+
+                <div class="dashboard-top-actions">
+
+                    <button
+                        type="button"
+                        class="dashboard-theme-btn"
+                        aria-label="Theme"
+                    >
+                        <svg
+                            viewBox="0 0 24 24"
+                            width="18"
+                            height="18"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        >
+                            <circle cx="12" cy="12" r="4"></circle>
+                            <path d="M12 2v2"></path>
+                            <path d="M12 20v2"></path>
+                            <path d="M4.93 4.93l1.41 1.41"></path>
+                            <path d="M17.66 17.66l1.41 1.41"></path>
+                            <path d="M2 12h2"></path>
+                            <path d="M20 12h2"></path>
+                        </svg>
+
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="dashboard-notification-btn"
+                        aria-label="Notifications"
+                    >
+                        <svg
+                            viewBox="0 0 24 24"
+                            width="18"
+                            height="18"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        >
+                            <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"></path>
+                            <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                        </svg>
+
+                        <span class="dashboard-notification-dot"></span>
+
+                    </button>
+
+
+                    <div class="dashboard-profile">
+
+                        <button
+                            type="button"
+                            id="analyticsLogoutBtn"
+                            class="dashboard-logout-btn"
+                        >
+                            Logout
+                        </button>
+
+
+                        <div
+                            class="dashboard-profile-avatar"
+                            id="analyticsProfileAvatar"
+                        >
+                            P
+                        </div>
+
+
+                        <div class="dashboard-profile-info">
+
+                            <strong id="analyticsProfileName">
+                                User
+                            </strong>
+
+                            <span>
+                                Administrator
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </header>
+
+
+            <!-- Analytics content comes next -->
+
+            <main class="dashboard-main">
+
+              <section class="analytics-page-intro">
+
+                <div class="analytics-intro-content">
+
+                    <div class="analytics-intro-text">
+
+                        <span class="analytics-eyebrow">
+                            PERFORMANCE CENTER
+                        </span>
+
+                        <h1>
+                            Analytics
+                        </h1>
+
+                        <p>
+                            Understand how all your forms are performing,
+                            compare results and discover meaningful trends.
+                        </p>
+
+                    </div>
+
+
+                    <div class="analytics-intro-visual" aria-hidden="true">
+
+                        <div class="analytics-visual-glow"></div>
+
+                        <div class="analytics-3d-card analytics-3d-card-back">
+
+                            <span></span>
+                            <span></span>
+                            <span></span>
+
+                        </div>
+
+
+                        <div class="analytics-3d-card analytics-3d-card-front">
+
+                            <div class="analytics-mini-chart">
+
+                                <span style="height: 35%"></span>
+                                <span style="height: 55%"></span>
+                                <span style="height: 45%"></span>
+                                <span style="height: 78%"></span>
+                                <span style="height: 65%"></span>
+                                <span style="height: 92%"></span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="analytics-period-control">
+
+                        <button
+                            type="button"
+                            class="analytics-period-btn active"
+                            data-period="30"
+                        >
+                            30 Days
+                        </button>
+
+                        <button
+                            type="button"
+                            class="analytics-period-btn"
+                            data-period="90"
+                        >
+                            90 Days
+                        </button>
+
+                        <button
+                            type="button"
+                            class="analytics-period-btn"
+                            data-period="all"
+                        >
+                            All Time
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- =========================
+                ANALYTICS KPI CARDS
+            ========================== -->
+
+            <section class="analytics-kpi-grid">
+
+                <!-- RESPONSE GROWTH -->
+
+                <article class="analytics-kpi-card">
+
+                    <div class="analytics-kpi-top">
+
+                       <div class="analytics-kpi-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M3 17l6-6 4 4 8-9"></path>
+                                <path d="M15 6h6v6"></path>
+                            </svg>
+                        </div>
+
+                        <span class="analytics-kpi-badge" id="analyticsGrowthBadge">
+                            —
+                        </span>
+
+                    </div>
+
+                    <p>
+                        Response Growth
+                    </p>
+
+                    <h2 id="analyticsResponseGrowth">
+                        0%
+                    </h2>
+
+                    <small id="analyticsGrowthText">
+                        Compared with previous period
+                    </small>
+
+                </article>
+
+
+                <!-- AVERAGE COMPLETION -->
+
+                <article class="analytics-kpi-card">
+
+                    <div class="analytics-kpi-top">
+
+                        <div class="analytics-kpi-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="9"></circle>
+                            <path d="m8 12 2.5 2.5L16 9"></path>
+                        </svg>
+                    </div>
+
+                    </div>
+
+                    <p>
+                        Avg. Completion Rate
+                    </p>
+
+                    <h2 id="analyticsAverageCompletion">
+                        0%
+                    </h2>
+
+                    <small>
+                        Across all forms
+                    </small>
+
+                </article>
+
+
+                <!-- ACTIVE FORMS -->
+
+                <article class="analytics-kpi-card">
+
+                    <div class="analytics-kpi-top">
+
+                        <div class="analytics-kpi-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="5" y="3" width="14" height="18" rx="2"></rect>
+                            <path d="M9 8h6"></path>
+                            <path d="M9 12h6"></path>
+                            <path d="M9 16h4"></path>
+                        </svg>
+                    </div>
+
+                    </div>
+
+                    <p>
+                        Active Forms
+                    </p>
+
+                    <h2 id="analyticsActiveForms">
+                        0
+                    </h2>
+
+                    <small id="analyticsActiveFormsText">
+                        Forms receiving responses
+                    </small>
+
+                </article>
+
+
+                <!-- BEST PERFORMING FORM -->
+
+                <article class="analytics-kpi-card analytics-kpi-featured">
+
+                    <div class="analytics-kpi-top">
+
+                       <div class="analytics-kpi-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M8 4h8v3a4 4 0 0 1-8 0V4Z"></path>
+                                <path d="M8 6H5v1a4 4 0 0 0 4 4"></path>
+                                <path d="M16 6h3v1a4 4 0 0 1-4 4"></path>
+                                <path d="M12 11v5"></path>
+                                <path d="M9 20h6"></path>
+                                <path d="M10 16h4v4h-4z"></path>
+                            </svg>
+                        </div>
+
+                        <span class="analytics-kpi-badge">
+                            TOP
+                        </span>
+
+                    </div>
+
+                    <p>
+                        Best Performing Form
+                    </p>
+
+                    <h2
+                        id="analyticsBestForm"
+                        class="analytics-best-form-name"
+                    >
+                        —
+                    </h2>
+
+                    <small id="analyticsBestFormText">
+                        Based on responses
+                    </small>
+
+                </article>
+
+            </section>
+
+            <!-- =========================
+                FORM PERFORMANCE OVERVIEW
+            ========================== -->
+
+            <section class="analytics-performance-card">
+
+                <div class="analytics-section-header">
+
+                    <div>
+                        <span class="analytics-section-eyebrow">
+                            PERFORMANCE
+                        </span>
+
+                        <h2>
+                            Form Performance Overview
+                        </h2>
+
+                        <p>
+                            Compare response activity across your forms.
+                        </p>
+                    </div>
+
+                    <div
+                        class="analytics-chart-legend"
+                        id="analyticsChartLegend"
+                    ></div>
+
+                </div>
+
+
+                <div
+                    class="analytics-chart-area"
+                    id="analyticsPerformanceChart"
+                >
+
+                    <div class="analytics-chart-empty">
+
+                        <div class="analytics-chart-empty-icon analytics-floating-chart-icon">
+
+                            <div class="analytics-float-card analytics-float-card-back"></div>
+
+                            <div class="analytics-float-card analytics-float-card-middle"></div>
+
+                            <div class="analytics-float-card analytics-float-card-main">
+
+                                <div class="analytics-float-line">
+
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+
+                                    <svg
+                                        viewBox="0 0 100 45"
+                                        preserveAspectRatio="none"
+                                        aria-hidden="true"
+                                    >
+                                        <polyline
+                                            points="8,34 34,18 58,27 88,8"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            stroke-width="4"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                        ></polyline>
+                                    </svg>
+
+                                </div>
+
+                                <div class="analytics-float-bars">
+                                    <i></i>
+                                    <i></i>
+                                    <i></i>
+                                    <i></i>
+                                    <i></i>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <strong>
+                            Loading performance data...
+                        </strong>
+
+                        <span>
+                            Your form activity will appear here.
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- =========================
+                TOP PERFORMING FORMS
+            ========================== -->
+
+            <section class="analytics-top-forms-card">
+
+                <div class="analytics-section-header">
+
+                    <div>
+                        <span class="analytics-section-eyebrow">
+                            LEADERBOARD
+                        </span>
+
+                        <h2>
+                            Top Performing Forms
+                        </h2>
+
+                        <p>
+                            Your highest-performing forms based on responses.
+                        </p>
+                    </div>
+
+                    <span
+                        class="analytics-top-period"
+                        id="analyticsTopFormsPeriod"
+                    >
+                        Last 30 Days
+                    </span>
+
+                </div>
+
+
+                <div
+                    class="analytics-top-forms-list"
+                    id="analyticsTopFormsList"
+                >
+
+                    <div class="analytics-top-forms-loading">
+
+                        <div class="analytics-leaderboard-visual">
+
+                            <div class="analytics-podium analytics-podium-second">
+                                <span>2</span>
+                            </div>
+
+                            <div class="analytics-podium analytics-podium-first">
+                                <span>1</span>
+                            </div>
+
+                            <div class="analytics-podium analytics-podium-third">
+                                <span>3</span>
+                            </div>
+
+                        </div>
+
+                        <strong>
+                            Loading top forms...
+                        </strong>
+
+                        <span>
+                            Performance ranking will appear here.
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- =========================
+                AUDIENCE SNAPSHOT
+            ========================== -->
+
+            <section class="analytics-audience-card">
+
+                <div class="analytics-section-header">
+
+                    <div>
+                        <span class="analytics-section-eyebrow">
+                            AUDIENCE
+                        </span>
+
+                        <h2>Audience Snapshot</h2>
+
+                        <p>
+                            Understand how people access and respond to your forms.
+                        </p>
+                    </div>
+
+                    <span
+                        class="analytics-top-period"
+                        id="analyticsAudiencePeriod"
+                    >
+                        Last 30 Days
+                    </span>
+
+                </div>
+
+
+                <div class="analytics-audience-grid">
+
+                    <!-- DEVICES -->
+                    <article class="analytics-audience-panel">
+
+                        <div class="analytics-audience-panel-header">
+
+                            <div>
+                                <span class="analytics-audience-label">
+                                    DEVICES
+                                </span>
+
+                                <h3>Device Breakdown</h3>
+                            </div>
+
+                            <div class="analytics-audience-icon">
+                                <svg viewBox="0 0 24 24" aria-hidden="true">
+                                    <rect
+                                        x="4"
+                                        y="3"
+                                        width="16"
+                                        height="13"
+                                        rx="2"
+                                    ></rect>
+
+                                    <path d="M8 21h8"></path>
+                                    <path d="M12 16v5"></path>
+                                </svg>
+                            </div>
+
+                        </div>
+
+                        <div
+                            class="analytics-audience-content"
+                            id="analyticsDeviceSnapshot"
+                        >
+                            <div class="analytics-mini-loading">
+                                Loading device data...
+                            </div>
+                        </div>
+
+                    </article>
+
+
+                    <!-- LOCATIONS -->
+                    <article class="analytics-audience-panel">
+
+                        <div class="analytics-audience-panel-header">
+
+                            <div>
+                                <span class="analytics-audience-label">
+                                    LOCATIONS
+                                </span>
+
+                                <h3>Top Locations</h3>
+                            </div>
+
+                            <div class="analytics-audience-icon">
+                                <svg viewBox="0 0 24 24" aria-hidden="true">
+                                    <path
+                                        d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z"
+                                    ></path>
+
+                                    <circle
+                                        cx="12"
+                                        cy="10"
+                                        r="2.5"
+                                    ></circle>
+                                </svg>
+                            </div>
+
+                        </div>
+
+                        <div
+                            class="analytics-audience-content"
+                            id="analyticsLocationSnapshot"
+                        >
+                            <div class="analytics-mini-loading">
+                                Loading location data...
+                            </div>
+                        </div>
+
+                    </article>
+
+
+                    <!-- BROWSERS -->
+                    <article class="analytics-audience-panel">
+
+                        <div class="analytics-audience-panel-header">
+
+                            <div>
+                                <span class="analytics-audience-label">
+                                    BROWSERS
+                                </span>
+
+                                <h3>Browser Usage</h3>
+                            </div>
+
+                            <div class="analytics-audience-icon">
+                                <svg viewBox="0 0 24 24" aria-hidden="true">
+                                    <circle
+                                        cx="12"
+                                        cy="12"
+                                        r="9"
+                                    ></circle>
+
+                                    <path d="M3 12h18"></path>
+                                    <path
+                                        d="M12 3c2.5 2.5 4 5.5 4 9s-1.5 6.5-4 9"
+                                    ></path>
+
+                                    <path
+                                        d="M12 3c-2.5 2.5-4 5.5-4 9s1.5 6.5 4 9"
+                                    ></path>
+                                </svg>
+                            </div>
+
+                        </div>
+
+                        <div
+                            class="analytics-audience-content"
+                            id="analyticsBrowserSnapshot"
+                        >
+                            <div class="analytics-mini-loading">
+                                Loading browser data...
+                            </div>
+                        </div>
+
+                    </article>
+
+                </div>
+
+            </section>
+
+            <!-- =========================
+                FORM HEALTH
+            ========================== -->
+
+            <section class="analytics-health-card">
+
+                <div class="analytics-section-header">
+
+                    <div>
+                        <span class="analytics-section-eyebrow">
+                            FORM HEALTH
+                        </span>
+
+                        <h2>Form Health</h2>
+
+                        <p>
+                            Quickly identify active forms and forms that may need attention.
+                        </p>
+                    </div>
+
+                    <span
+                        class="analytics-top-period"
+                        id="analyticsHealthPeriod"
+                    >
+                        Last 30 Days
+                    </span>
+
+                </div>
+
+
+                <div class="analytics-health-grid">
+
+                    <article class="analytics-health-panel health-performing">
+
+                       <div class="analytics-health-icon health-icon-success">
+                            <svg viewBox="0 0 64 64" aria-hidden="true">
+                                <path class="health-chart-bar" d="M12 48V38"></path>
+                                <path class="health-chart-bar" d="M25 48V29"></path>
+                                <path class="health-chart-bar" d="M38 48V20"></path>
+
+                                <path
+                                    class="health-main-line"
+                                    d="M11 31L23 22L32 27L49 11"
+                                ></path>
+
+                                <path
+                                    class="health-main-line"
+                                    d="M39 11H49V21"
+                                ></path>
+                            </svg>
+                        </div>
+
+                        <div>
+                            <span>PERFORMING WELL</span>
+
+                            <strong id="analyticsHealthyForms">
+                                —
+                            </strong>
+
+                            <small>
+                                Forms receiving consistent responses
+                            </small>
+                        </div>
+
+                    </article>
+
+
+                    <article class="analytics-health-panel health-attention">
+
+                       <div class="analytics-health-icon health-icon-warning">
+                            <svg viewBox="0 0 64 64" aria-hidden="true">
+                                <path
+                                    class="health-main-line"
+                                    d="M32 10L55 51H9L32 10Z"
+                                ></path>
+
+                                <path
+                                    class="health-main-line"
+                                    d="M32 24V37"
+                                ></path>
+
+                                <circle
+                                    class="health-icon-dot"
+                                    cx="32"
+                                    cy="45"
+                                    r="2"
+                                ></circle>
+                            </svg>
+                        </div>
+
+                        <div>
+                            <span>NEEDS ATTENTION</span>
+
+                            <strong id="analyticsAttentionForms">
+                                —
+                            </strong>
+
+                            <small>
+                                Forms with low recent activity
+                            </small>
+                        </div>
+
+                    </article>
+
+
+                    <article class="analytics-health-panel health-inactive">
+
+                        <div class="analytics-health-icon health-icon-inactive">
+                            <svg viewBox="0 0 64 64" aria-hidden="true">
+                                <circle
+                                    class="health-main-line"
+                                    cx="32"
+                                    cy="32"
+                                    r="21"
+                                ></circle>
+
+                                <path
+                                    class="health-main-line"
+                                    d="M32 19V33L42 39"
+                                ></path>
+                            </svg>
+                        </div>
+
+                        <div>
+                            <span>INACTIVE</span>
+
+                            <strong id="analyticsInactiveForms">
+                                —
+                            </strong>
+
+                            <small>
+                                Forms with no responses in this period
+                            </small>
+                        </div>
+
+                    </article>
+
+                </div>
+
+            </section>
+
+            <!-- =========================
+                ALL FORMS PERFORMANCE
+            ========================== -->
+
+            <section class="analytics-table-card">
+
+                <div class="analytics-section-header">
+
+                    <div>
+                        <span class="analytics-section-eyebrow">
+                            PERFORMANCE DETAILS
+                        </span>
+
+                        <h2>All Forms Performance</h2>
+
+                        <p>
+                            Compare performance across all your forms.
+                        </p>
+                    </div>
+
+                    <span
+                        class="analytics-top-period"
+                        id="analyticsTablePeriod"
+                    >
+                        Last 30 Days
+                    </span>
+
+                </div>
+
+
+                <div class="analytics-table-wrapper">
+
+                    <table class="analytics-performance-table">
+
+                        <thead>
+                            <tr>
+                                <th>Form</th>
+                                <th>Responses</th>
+                                <th>Completion</th>
+                                <th>Unique Visitors</th>
+                                <th>Last Response</th>
+                                <th>Status</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="analyticsFormsTableBody">
+
+                            <tr>
+                                <td
+                                    colspan="7"
+                                    class="analytics-table-loading"
+                                >
+                                    Loading form performance...
+                                </td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+            <!-- ==========================================
+                KEY INSIGHTS
+            ========================================== -->
+            <section class="analytics-section insights-section">
+
+                <div class="analytics-section-header">
+                    <div>
+                        <span class="analytics-eyebrow">SMART SUMMARY</span>
+                        <h2>Key Insights</h2>
+                        <p>
+                            Important highlights calculated from your form performance.
+                        </p>
+                    </div>
+
+                    <span class="analytics-period-label" id="insightsPeriod">
+                        Last 30 Days
+                    </span>
+                </div>
+
+
+                <div class="insights-grid">
+
+                    <!-- TOP FORM -->
+                    <div class="insight-card insight-purple">
+
+                        <div class="insight-icon">
+                            <svg viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.8">
+                                <path d="M8 21h8"/>
+                                <path d="M12 17v4"/>
+                                <path d="M7 4h10v4a5 5 0 0 1-10 0V4Z"/>
+                                <path d="M7 6H4v2a4 4 0 0 0 4 4"/>
+                                <path d="M17 6h3v2a4 4 0 0 1-4 4"/>
+                            </svg>
+                        </div>
+
+                        <div class="insight-content">
+                            <span class="insight-label">TOP FORM</span>
+                            <h3 id="insightTopForm">—</h3>
+                            <p id="insightTopFormText">
+                                Calculating your best performing form...
+                            </p>
+                        </div>
+
+                    </div>
+
+
+                    <!-- COMPLETION -->
+                    <div class="insight-card insight-green">
+
+                        <div class="insight-icon">
+                            <svg viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.8">
+                                <path d="M4 19V10"/>
+                                <path d="M10 19V5"/>
+                                <path d="M16 19v-7"/>
+                                <path d="M22 19V3"/>
+                                <path d="m4 7 5-4 6 5 7-6"/>
+                            </svg>
+                        </div>
+
+                        <div class="insight-content">
+                            <span class="insight-label">COMPLETION</span>
+                            <h3 id="insightCompletion">—</h3>
+                            <p id="insightCompletionText">
+                                Analysing completion performance...
+                            </p>
+                        </div>
+
+                    </div>
+
+
+                    <!-- NEEDS ATTENTION -->
+                    <div class="insight-card insight-orange">
+
+                        <div class="insight-icon">
+                            <svg viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.8">
+                                <path d="M12 9v4"/>
+                                <path d="M12 17h.01"/>
+                                <path d="M10.3 3.7 2.4 18a2 2 0 0 0 1.8 3h15.6a2 2 0 0 0 1.8-3L13.7 3.7a2 2 0 0 0-3.4 0Z"/>
+                            </svg>
+                        </div>
+
+                        <div class="insight-content">
+                            <span class="insight-label">NEEDS ATTENTION</span>
+                            <h3 id="insightAttention">—</h3>
+                            <p id="insightAttentionText">
+                                Checking forms with low recent activity...
+                            </p>
+                        </div>
+
+                    </div>
+
+
+                    <!-- AUDIENCE -->
+                    <div class="insight-card insight-blue">
+
+                        <div class="insight-icon">
+                            <svg viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.8">
+                                <circle cx="9" cy="8" r="4"/>
+                                <path d="M2 21a7 7 0 0 1 14 0"/>
+                                <path d="M16 3.5a4 4 0 0 1 0 7.5"/>
+                                <path d="M18 14a6 6 0 0 1 4 6"/>
+                            </svg>
+                        </div>
+
+                        <div class="insight-content">
+                            <span class="insight-label">AUDIENCE</span>
+                            <h3 id="insightAudience">—</h3>
+                            <p id="insightAudienceText">
+                                Analysing visitor information...
+                            </p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+            </main>
+
+        </div>
+
+    </div>
+
+
+    <script src="js/apiAuth.js"></script>
+    <script src="js/analytics.js"></script>
+
+</body>
+
+</html>

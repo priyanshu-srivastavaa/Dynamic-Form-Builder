@@ -158,29 +158,49 @@ const selectedFormId =
 
 
 // ==========================================
-// START
+// START RESPONSES PAGE
 // ==========================================
 
-if (!selectedFormId) {
+function initializeResponsesPage() {
 
-    responsesList.innerHTML = `
-        <div class="dashboard-empty-state">
+    if (!selectedFormId) {
 
-            <h2>
-                No form selected
-            </h2>
+        if (responsesList) {
+            responsesList.innerHTML = `
+                <div class="dashboard-empty-state">
 
-            <p>
-                Please return to the dashboard and choose a form.
-            </p>
+                    <h2>
+                        No form selected
+                    </h2>
 
-        </div>
-    `;
+                    <p>
+                        Please return to the dashboard and choose a form.
+                    </p>
+
+                </div>
+            `;
+        }
+
+        return;
+    }
+
+    loadSelectedFormResponses();
+}
+
+
+
+if (document.readyState === "loading") {
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        initializeResponsesPage,
+        { once: true }
+    );
 
 }
 else {
 
-    loadSelectedFormResponses();
+    initializeResponsesPage();
 
 }
 
@@ -279,6 +299,12 @@ async function loadSelectedFormResponses() {
 
 currentSelectedForm =
     selectedForm;
+
+    // Initial page render
+currentResponseSearch = "";
+currentResponsePage = 1;
+
+
 
 responsesPageTitle.textContent =
     selectedForm?.title ||
@@ -5601,6 +5627,36 @@ function renderResponsesPagination(
     `;
 
 }
+
+// ==========================================
+// CTRL + K - FOCUS RESPONSE SEARCH
+// ==========================================
+
+document.addEventListener("keydown", function (event) {
+
+    if (
+        (event.ctrlKey || event.metaKey) &&
+        event.key.toLowerCase() === "k"
+    ) {
+        event.preventDefault();
+
+        if (responsesSearchInput) {
+
+            responsesSearchInput.focus();
+
+            // Empty search par saare responses show rakho
+            currentResponseSearch =
+                responsesSearchInput.value
+                    .trim()
+                    .toLowerCase();
+
+            currentResponsePage = 1;
+
+            applyResponseFilter();
+        }
+    }
+
+});
 // ==========================================
 // RESPONSE SEARCH
 // ==========================================
@@ -5954,3 +6010,37 @@ if (
     );
 
 }
+
+/* ==========================================
+   RESPONSES TOPBAR - LOGGED IN USER
+========================================== */
+
+function loadResponsesUserProfile() {
+    const nameElement = document.getElementById("responsesUserName");
+    const avatarElement = document.getElementById("responsesUserAvatar");
+
+    if (!nameElement || !avatarElement) return;
+
+    try {
+        const storedUser = JSON.parse(localStorage.getItem("loggedInUser") || "{}");
+
+        const userName =
+            storedUser.name ||
+            storedUser.fullName ||
+            storedUser.username ||
+            "User";
+
+        nameElement.textContent = userName;
+
+        avatarElement.textContent =
+            userName.charAt(0).toUpperCase();
+
+    } catch (error) {
+        console.error("Unable to load user profile:", error);
+
+        nameElement.textContent = "User";
+        avatarElement.textContent = "U";
+    }
+}
+
+document.addEventListener("DOMContentLoaded", loadResponsesUserProfile);
